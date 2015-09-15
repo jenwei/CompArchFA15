@@ -1,0 +1,36 @@
+# Reading C:/Modeltech_pe_edu_10.4a/tcl/vsim/pref.tcl
+cd c:/CA15/HW1
+# reading modelsim.ini
+do hw1.do
+# Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+# Start time: 10:26:28 on Sep 15,2015
+# vlog -reportprogress 300 -work work hw1.v 
+# -- Compiling module hw1test
+# 
+# Top level modules:
+# 	hw1test
+# End time: 10:26:28 on Sep 15,2015, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# //  ModelSim PE Student Edition 10.4a Apr  7 2015 
+# //
+# //  Copyright 1991-2015 Mentor Graphics Corporation
+
+do hw1.do
+# Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+# Start time: 11:05:05 on Sep 15,2015
+# vlog -reportprogress 300 -work work hw1.v 
+# -- Compiling module hw1test
+# 
+# Top level modules:
+# 	hw1test
+# End time: 11:05:05 on Sep 15,2015, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim 
+# Start time: 11:05:07 on Sep 15,2015
+# Loading work.hw1test
+# Hello, CompArch!
+# A B | ~A ~B | ~(AB) ~A+~B | ~(A+B) ~A~B
+# 0 0 |  1  1 |    1    1   |     1     1
+# 0 1 |  1  0 |    1    1   |     0     0
+# 1 0 |  0  1 |    1    1   |     0     0
+# 1 1 |  0  0 |    0    0   |     0     0
