@@ -1,0 +1,10 @@
+#-----------------------------------------------------------
+# Vivado v2015.2 (64-bit)
+# SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
+# IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
+# Start of session at: Tue Sep 29 15:44:46 2015
+# Process ID: 5888
+# Log file: C:/Users/rapto/OneDrive/Documents/GitHub/CALab0/CompArchFA15/Lab/Lab0/Vivado_work/Lab_0/Lab_0.runs/synth_1/lab0_wrapper.vds
+# Journal file: C:/Users/rapto/OneDrive/Documents/GitHub/CALab0/CompArchFA15/Lab/Lab0/Vivado_work/Lab_0/Lab_0.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source lab0_wrapper.tcl -notrace
