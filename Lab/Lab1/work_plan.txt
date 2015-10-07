@@ -1,0 +1,31 @@
+CompArch Lab 1: Arithmetic Logic Unit
+Jacob Riedel, Jennifer Vaccaro, Jennifer Wei
+
+Work Plan
+Task          | Time Estimate (Hrs) | Planned Completion Date 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Logic           2                     EOD 10/10
+	‘ADD’
+	‘SUB’
+	‘XOR’
+	‘SLT’
+	‘AND’
+	‘NAND’
+	‘NOR’
+	‘OR’
+	Think about Test Benches
+Verilog         2                     EOD 10/10
+	Debug
+Describe LUT    1          			  EOD 10/11 
+Add Gate Delays 1 					  EOD 10/11
+Comment Code    1 					  EOD 10/12
+Test Benches    3   				  EOD 10/13
+	Figure out what to tests to do
+	Set up test benches
+	Debug
+Documentation   3   				  5pm 10/14
+	Implementation
+	Test Results
+	Timing Analysis
+	Work Plan Reflection
+	Editing Report
