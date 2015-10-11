@@ -1,0 +1,3 @@
+﻿Meeting
+10/8/2015 	3 hours Drawing out logic and starting verilog
+10/10/2015	1.5 hours Completing verilog + starting testing
