@@ -28,20 +28,16 @@ input carry;
 output carryout, overflow;
 wire pos2neg, neg2pos;
 wire na31, nb31, ns31;
-
 wire[30:0] Carry;
-fulladder yolo(Carry[0], Sum[0], A[0], B[0], carry);
-
 genvar i;
+fulladder yolo(Carry[0], Sum[0], A[0], B[0], carry);
 generate
 begin: add_it_up
 for(i=1; i<31; i=i+1)
-	fulladder yoloswag(Carry[i], Sum[i], A[i], B[i], Carry[i-1]);
+fulladder yoloswag(Carry[i], Sum[i], A[i], B[i], Carry[i-1]);
 end
 endgenerate
-
 fulladder swag(carryout, Sum[31], A[31], B[31], Carry[30]);
-
 `Not notA31(na31, A[31]);
 `Not notB31(nb31, B[31]);
 `Not notS31(ns31, Sum[31]);
@@ -50,11 +46,25 @@ fulladder swag(carryout, Sum[31], A[31], B[31], Carry[30]);
 `Or over(overflow, pos2neg, neg2pos);
 endmodule
 
-module behavioraladder32(carryout, Sum, A, B);
-input [31:0] A, B;
+module subtract32(carryout, overflow, Sum, A, B, enable);
+input[31:0] A, B;
+input carry;
 output[31:0] Sum;
+output carryout, overflow;
+wire [31:0] newB;            
+genvar j;
+for (j=0; j<32; j=j+1) begin
+`Xor modB(newB[j], B[j], enable);
+end
+adder32 subToAdd(carryout, overflow, Sum, A, newB, carry);
+endmodule
+
+module behavioraladder32(carryout, overflow, Sum, A, B);
+input [31:0] A, B;
+output[31:0] Sum, overflow;
 output carryout;
 assign {carryout, Sum}=A+B;
+assign overflow = (Sum[31] != carryout);
 endmodule
 
 module behavioralsubtracter32(carryout, Dif, A, B);
@@ -81,18 +91,24 @@ endmodule
 
 module testeverything;
 reg[31:0] A, B;
-wire[31:0] Sum, SumTest;
-wire carryout, carryoutTest, overflow;
-integer i, j;
 reg carry = 0;
-adder32 adder(carryout, overflow, Sum, A, B, carry);
-behavioraladder32 testadder(carroutTest, SumTest, A, B);
+wire[31:0] Sum, SumTest, Dif, DifTest;
+wire aco, acoT, aof, aofT, sco, scoT, sof, sofT;
+integer i, j;
+
+adder32 adder(aco, aof, Sum, A, B, carry);
+behavioraladder32 testadder(acoT, aofT, SumTest, A, B);
+subtract32 subtract(sco, sof, Dif, A, B, carry);
+//behavioralsubtracter32 testsub(scoT, sofT, DifTest, A, B, carry);
+
 initial begin: yolo
 A=32'b00000000000000000000000000000000; B=32'b00000000000000000000000000000000;
-for (i=0; i<32; i=i+4) begin: swag
-for (j=0; j<32; j=j+12) begin
+for (i=0; i<32; i=i+5) begin: swag
+for (j=0; j<32; j=j+7) begin
 A[i]=1; B[j]=1; #1000
-$display(Sum==SumTest, carryout==carroutTest);
+$display("Test Sub | ", Dif, sco, sof);
+//$display("Test Add | ", Sum==SumTest, aco==acoT, aof==aofT);
+
 end
 end
 end
