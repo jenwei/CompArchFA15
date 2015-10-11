@@ -13,27 +13,26 @@ wire axorb;
 wire ab, nanb;
 wire two;
 
-`And andab(ab, a, b); 	//ab
-`Not invab(nanb, ab); 	//a nor b
-`Xor xorg(axorb, a, b); 	//a xor b
+`And andab(ab, a, b); //ab
+`Xor xorg(axorb, a, b); //a xor b
 
 `And and2(two, carryin, axorb);
 `Or or2(carryout, two, ab);
 `Xor xor1(sum, axorb, carryin);
 endmodule
 
-module adder32(carryout, overflow, Sum, A, B);
+module adder32(carryout, overflow, Sum, A, B, carry);
 input[31:0] A, B;
 output[31:0] Sum;
+input carry;
 output carryout, overflow;
 wire pos2neg, neg2pos;
 wire na31, nb31, ns31;
 
-genvar i;
-reg carry=0;
 wire[30:0] Carry;
 fulladder yolo(Carry[0], Sum[0], A[0], B[0], carry);
 
+genvar i;
 generate
 begin: add_it_up
 for(i=1; i<31; i=i+1)
@@ -85,7 +84,8 @@ reg[31:0] A, B;
 wire[31:0] Sum, SumTest;
 wire carryout, carryoutTest, overflow;
 integer i, j;
-adder32 adder(carryout, overflow, Sum, A, B);
+reg carry = 0;
+adder32 adder(carryout, overflow, Sum, A, B, carry);
 behavioraladder32 testadder(carroutTest, SumTest, A, B);
 initial begin: yolo
 A=32'b00000000000000000000000000000000; B=32'b00000000000000000000000000000000;
