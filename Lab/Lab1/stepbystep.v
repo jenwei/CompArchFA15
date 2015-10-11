@@ -51,20 +51,48 @@ fulladder swag(carryout, Sum[31], A[31], B[31], Carry[30]);
 `Or over(overflow, pos2neg, neg2pos);
 endmodule
 
+module behavioraladder32(carryout, Sum, A, B);
+input [31:0] A, B;
+output[31:0] Sum;
+output carryout;
+assign {carryout, Sum}=A+B;
+endmodule
+
+module behavioralsubtracter32(carryout, Dif, A, B);
+input[31:0] A,B;
+output[31:0] Dif;
+output carryout;
+assign {carryout, Dif} = A-B;
+endmodule
+
+module behavioralslt(out, A, B);
+input[31:0] A,B;
+output out;
+assign {out} = A<B;
+endmodule
+
+module behavioraldecoder(out, in);
+input[3:0] in;
+output[7:0] out;
+genvar i;
+for (i=0; i<8; i=i+1) begin
+assign {out[i]}= (i == in);
+end
+endmodule
+
 module testeverything;
 reg[31:0] A, B;
-wire[31:0] Sum;
-wire carryout, overflow;
+wire[31:0] Sum, SumTest;
+wire carryout, carryoutTest, overflow;
 integer i, j;
-
-adder32 testadder(carryout, overflow, Sum, A, B);
-
+adder32 adder(carryout, overflow, Sum, A, B);
+behavioraladder32 testadder(carroutTest, SumTest, A, B);
 initial begin: yolo
 A=32'b00000000000000000000000000000000; B=32'b00000000000000000000000000000000;
 for (i=0; i<32; i=i+4) begin: swag
 for (j=0; j<32; j=j+12) begin
 A[i]=1; B[j]=1; #1000
-$display("%b %b", B, Sum);
+$display(Sum==SumTest, carryout==carroutTest);
 end
 end
 end
