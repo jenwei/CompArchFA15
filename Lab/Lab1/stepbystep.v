@@ -51,11 +51,13 @@ input[31:0] A, B;
 input carry;
 output[31:0] Sum;
 output carryout, overflow;
-wire [31:0] newB;            
+wire [31:0] tempB, newB;            
 genvar j;
 for (j=0; j<32; j=j+1) begin
-`Xor modB(newB[j], B[j], enable);
+`Xor modB(tempB[j], B[j], enable);
 end
+// TODO - DO ADDER32 WITH 1 AND TEMPB
+// adder plusOne(carryout, overflow, newB, one, tempB, carry);
 adder32 subToAdd(carryout, overflow, Sum, A, newB, carry);
 endmodule
 
@@ -103,6 +105,7 @@ subtract32 subtract(sco, sof, Dif, A, B, carry);
 
 initial begin: yolo
 A=32'b00000000000000000000000000000000; B=32'b00000000000000000000000000000000;
+// TO DO: TEST THAT ADDER32 WORKS FOR NEGATIVES
 for (i=0; i<32; i=i+5) begin: swag
 for (j=0; j<32; j=j+7) begin
 A[i]=1; B[j]=1; #1000
