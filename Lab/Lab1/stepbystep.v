@@ -26,18 +26,22 @@ input[31:0] A, B;
 output[31:0] Sum;
 input carry;
 output carryout, overflow;
+
 wire pos2neg, neg2pos;
 wire na31, nb31, ns31;
-wire[30:0] Carry;
+
+wire[32:0] Carry;
 genvar i;
-fulladder yolo(Carry[0], Sum[0], A[0], B[0], carry);
+assign {Carry[0]} = carry;
+
 generate
 begin: add_it_up
-for(i=1; i<31; i=i+1)
-fulladder yoloswag(Carry[i], Sum[i], A[i], B[i], Carry[i-1]);
+for(i=0; i<32; i=i+1)
+fulladder yoloswag(Carry[i+1], Sum[i], A[i], B[i], Carry[i]);
 end
 endgenerate
-fulladder swag(carryout, Sum[31], A[31], B[31], Carry[30]);
+
+assign {carryout} = Carry[32];
 `Not notA31(na31, A[31]);
 `Not notB31(nb31, B[31]);
 `Not notS31(ns31, Sum[31]);
@@ -48,9 +52,10 @@ endmodule
 
 module subtract32(carryout, overflow, Sum, A, B, enable);
 input[31:0] A, B;
-input carry;
+input enable;
 output[31:0] Sum;
 output carryout, overflow;
+reg carry=1;
 wire [31:0] newB;            
 genvar j;
 for (j=0; j<32; j=j+1) begin
@@ -58,6 +63,22 @@ for (j=0; j<32; j=j+1) begin
 end
 adder32 subToAdd(carryout, overflow, Sum, A, newB, carry);
 endmodule
+
+//module subtract32(yolo, A, B, enable);
+//input[31:0] A, B;
+//input enable;
+//output[31:0] Sum;
+//output carryout, overflow;
+//wire[31:0] newB;            
+//output[31:0] yolo;
+//reg carry=1;
+//genvar j;
+//for (j=0; j<32; j=j+1) begin
+//`Xor modB(yolo[j], B[j], enable);
+//end
+//adder32 subToAdd(carryout, overflow, Sum, A, newB, carry);
+//assign {yolo} = newB;
+//endmodule
 
 module behavioraladder32(carryout, overflow, Sum, A, B);
 input [31:0] A, B;
@@ -71,13 +92,14 @@ module behavioralsubtracter32(carryout, Dif, A, B);
 input[31:0] A,B;
 output[31:0] Dif;
 output carryout;
-assign {carryout, Dif} = A-B;
+assign {Dif} = A-B;
+assign {carryout} = A>B;
 endmodule
 
 module behavioralslt(out, A, B);
 input[31:0] A,B;
 output out;
-assign {out} = A<B;
+assign {out} = (A<B);
 endmodule
 
 module behavioraldecoder(out, in);
@@ -91,24 +113,23 @@ endmodule
 
 module testeverything;
 reg[31:0] A, B;
-reg carry = 0;
+reg enable = 0;
 wire[31:0] Sum, SumTest, Dif, DifTest;
 wire aco, acoT, aof, aofT, sco, scoT, sof, sofT;
 integer i, j;
 
-adder32 adder(aco, aof, Sum, A, B, carry);
-behavioraladder32 testadder(acoT, aofT, SumTest, A, B);
-subtract32 subtract(sco, sof, Dif, A, B, carry);
-//behavioralsubtracter32 testsub(scoT, sofT, DifTest, A, B, carry);
+//adder32 adder(aco, aof, Sum, A, B, enable);
+//behavioraladder32 testadder(acoT, aofT, SumTest, A, B);
+subtract32 subtract(sco, sof, Dif, A, B, enable);
+//behavioralsubtracter32 testsub(scoT, sofT, DifTest, A, B, enable);
 
 initial begin: yolo
 A=32'b00000000000000000000000000000000; B=32'b00000000000000000000000000000000;
 for (i=0; i<32; i=i+5) begin: swag
 for (j=0; j<32; j=j+7) begin
 A[i]=1; B[j]=1; #1000
-$display("Test Sub | ", Dif, sco, sof);
-//$display("Test Add | ", Sum==SumTest, aco==acoT, aof==aofT);
-
+$display("Test Sub | %b", Dif);
+//$display("Test Add | %b", Sum);
 end
 end
 end
