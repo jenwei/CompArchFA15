@@ -5,6 +5,26 @@
 `define Or   or   #20
 `define Not  not  #10
 
+module decoder(Out, Addr);
+output[7:0] Out;
+input[2:0] Addr;
+wire[2:0] nAddr;
+genvar j;
+for (j=0; j<3; j=j+1) begin
+`Not notyolo(nAddr[j], Addr[j]);
+end
+
+`And and0(Out[0], nAddr[2], nAddr[1], nAddr[0]);
+`And and1(Out[1], nAddr[2], nAddr[1], Addr[0]);
+`And and2(Out[2], nAddr[2], Addr[1], nAddr[0]);
+`And and3(Out[3], nAddr[2], Addr[1], Addr[0]);
+`And and4(Out[4], Addr[2], nAddr[1], nAddr[0]);
+`And and5(Out[5], Addr[2], nAddr[1], Addr[0]);
+`And and6(Out[6], Addr[2], Addr[1], nAddr[0]);
+`And and7(Out[7], Addr[2], Addr[1], Addr[0]);
+
+endmodule
+
 module fulladder(carryout, sum, a, b, carryin);
 input a, b, carryin;
 output carryout, sum;
@@ -30,18 +50,17 @@ output carryout, overflow;
 wire pos2neg, neg2pos;
 wire na31, nb31, ns31;
 
-wire[32:0] Carry;
+wire[31:0] Carry;
 genvar i;
-assign {Carry[0]} = carry;
-
+fulladder yoloswag(Carry[0], Sum[0], A[0], B[0], carry);
 generate
 begin: add_it_up
-for(i=0; i<32; i=i+1)
-fulladder yoloswag(Carry[i+1], Sum[i], A[i], B[i], Carry[i]);
+for(i=1; i<32; i=i+1)
+fulladder yoloswag(Carry[i], Sum[i], A[i], B[i], Carry[i-1]);
 end
 endgenerate
 
-assign {carryout} = Carry[32];
+assign {carryout} = Carry[31];
 `Not notA31(na31, A[31]);
 `Not notB31(nb31, B[31]);
 `Not notS31(ns31, Sum[31]);
@@ -50,37 +69,32 @@ assign {carryout} = Carry[32];
 `Or over(overflow, pos2neg, neg2pos);
 endmodule
 
-module subtract32(carryout, overflow, Sum, A, B, enable);
+module subtract32(carryout, overflow, Sum, A, B);
 input[31:0] A, B;
-input enable;
 output[31:0] Sum;
 output carryout, overflow;
+reg enable=1;
 reg carry=1;
+
 wire [31:0] newB;            
 genvar j;
+
 for (j=0; j<32; j=j+1) begin
-`Xor modB(tempB[j], B[j], enable);
+`Xor modB(newB[j], B[j], enable);
 end
-// TODO - DO ADDER32 WITH 1 AND TEMPB
-// adder plusOne(carryout, overflow, newB, one, tempB, carry);
+
 adder32 subToAdd(carryout, overflow, Sum, A, newB, carry);
+
 endmodule
 
-//module subtract32(yolo, A, B, enable);
-//input[31:0] A, B;
-//input enable;
-//output[31:0] Sum;
-//output carryout, overflow;
-//wire[31:0] newB;            
-//output[31:0] yolo;
-//reg carry=1;
-//genvar j;
-//for (j=0; j<32; j=j+1) begin
-//`Xor modB(yolo[j], B[j], enable);
-//end
-//adder32 subToAdd(carryout, overflow, Sum, A, newB, carry);
-//assign {yolo} = newB;
-//endmodule
+module slt (carryout, A, B);
+input [31:0] A, B;
+output carryout;
+wire [31:0] Sum;
+wire overflow;
+subtract32 getSLT(carryout, overflow, Sum, A, B);
+endmodule
+
 
 module behavioraladder32(carryout, overflow, Sum, A, B);
 input [31:0] A, B;
@@ -115,25 +129,29 @@ endmodule
 
 module testeverything;
 reg[31:0] A, B;
-reg enable = 0;
 wire[31:0] Sum, SumTest, Dif, DifTest;
+reg[2:0] Addr;
+wire[7:0] Out;
 wire aco, acoT, aof, aofT, sco, scoT, sof, sofT;
 integer i, j;
 
+decoder DCD(Out, Addr);
 //adder32 adder(aco, aof, Sum, A, B, enable);
 //behavioraladder32 testadder(acoT, aofT, SumTest, A, B);
-subtract32 subtract(sco, sof, Dif, A, B, enable);
+//slt leq(out, A, B);
+//subtract32 subit(carryout, overflow, Dif, A, B);
 //behavioralsubtracter32 testsub(scoT, sofT, DifTest, A, B, enable);
 
 initial begin: yolo
-A=32'b00000000000000000000000000000000; B=32'b00000000000000000000000000000000;
-// TO DO: TEST THAT ADDER32 WORKS FOR NEGATIVES
-for (i=0; i<32; i=i+5) begin: swag
-for (j=0; j<32; j=j+7) begin
-A[i]=1; B[j]=1; #1000
-$display("Test Sub | %b", Dif);
-//$display("Test Add | %b", Sum);
-end
+//A=32'b11110000000000000000000000000000; B=32'b11110000000000000000000000000000;
+Addr = 3'b000;
+//for (i=0; i<32; i=i+5) begin: swag
+for (j=0; j<3; j=j+1) begin
+Addr[j] = 1; #500
+//A[j]=1; B[j]=1; #100000
+//$display("Test Sub | %b %b %b %b %b", out, carryout, out==carryout, aco, Dif);
+$display("Test Add | %b", Out);
+//end
 end
 end
 endmodule
