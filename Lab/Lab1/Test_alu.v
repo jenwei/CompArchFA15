@@ -21,9 +21,12 @@ structrualDecoder decode(out, command);
 
 genvar i;
 
-if (out[0] == 1)
+wire[31:0] AdderOut,SubOut,XorOut,SLTOut,AndOut,Nandout,NorOut,OrOut;
+
+if (out[0]) begin
   Adder32bit(result,carryout,overflow,operandA,operandB);
-if (out[1] == 1)
+end
+if (out[1])
   Subtracter32bit(result,carryout,overflow,operandA,operandB);
 if (out[2] == 1)
   for (i = 1; i < 31; i = i +1) begin
@@ -55,6 +58,9 @@ output[7:0] out;
 input[2:0] addr;
 
 wire[2:0] naddr;
+
+wire[31:0] AdderOut,SubOut,XorOut,SLTOut,AndOut,Nandout,NorOut,OrOut;
+
 
 `Not n0(naddr[0], addr[0]);
 `Not n1(naddr[1], addr[1]);
@@ -177,7 +183,7 @@ end
 
 endmodule
 
-module testDecoder; 
+module testALU; 
 wire[31:0] result;
 wire 		carryout;
 wire 		zero;
@@ -189,6 +195,37 @@ ALU alu(result,carryout,zero,overflow,operandA,operandB,command);
 initial begin
 $display("Structural Decoder");
 $display("OPA OPB COM || RES || Co Of Zr | Expected Output");
+command = 3'b000; operandA = 8'h00000000; operandB = 8'h00000000; #1000 
+$display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
+command = 3'b000; operandA = 8'h00000001; operandB = 8'h00000000; #1000 
+$display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
+command = 3'b000; operandA = 8'h00000000; operandB = 8'h00000001; #1000 
+$display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
+command = 3'b000; operandA = 8'h00000000; operandB = 8'hf0000000; #1000 
+$display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
+command = 3'b000; operandA = 8'hf0000000; operandB = 8'h00000000; #1000 
+$display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
+command = 3'b000; operandA = 8'hf0000000; operandB = 8'hf0000000; #1000 
+$display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
+command = 3'b000; operandA = 8'h00000001; operandB = 8'h00000001; #1000 
+$display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
+command = 3'b000; operandA = 8'h90000000; operandB = 8'h90000000; #1000 
+$display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
+
+command = 3'b000; operandA = 8'hf0000000; operandB = 8'h10000000; #1000 
+$display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
+command = 3'b000; operandA = 8'h10000000; operandB = 8'hf0000000; #1000 
+$display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
+command = 3'b000; operandA = 8'h90000000; operandB = 8'h10000000; #1000 
+$display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
+command = 3'b000; operandA = 8'h10000000; operandB = 8'h90000000; #1000 
+$display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
+command = 3'b000; operandA = 8'h70000000; operandB = 8'h70000000; #1000 
+$display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
+command = 3'b000; operandA = 8'h70000000; operandB = 8'hf0000000; #1000 
+$display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
+command = 3'b000; operandA = 8'hf0000000; operandB = 8'h70000000; #1000 
+$display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
 command = 3'b000; operandA = 8'h00000000; operandB = 8'h00000000; #1000 
 $display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
 end
