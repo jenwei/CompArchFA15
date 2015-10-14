@@ -195,38 +195,42 @@ ALU alu(result,carryout,zero,overflow,operandA,operandB,command);
 initial begin
 $display("Structural Decoder");
 $display("OPA OPB COM || RES || Co Of Zr | Expected Output");
-command = 3'b000; operandA = 8'h00000000; operandB = 8'h00000000; #1000 
+//Testing doubles
+command = 3'b000; operandA = 8'h00000000; operandB = 8'h00000000; #1000 //All zero case
 $display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
-command = 3'b000; operandA = 8'h00000001; operandB = 8'h00000000; #1000 
+command = 3'b000; operandA = 8'hffffffff; operandB = 8'hffffffff; #1000 //Double negative case
 $display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
-command = 3'b000; operandA = 8'h00000000; operandB = 8'h00000001; #1000 
+command = 3'b000; operandA = 8'h00000001; operandB = 8'h00000001; #1000 //Double positive case
 $display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
-command = 3'b000; operandA = 8'h00000000; operandB = 8'hf0000000; #1000 
+command = 3'b000; operandA = 8'h9fffffff; operandB = 8'h9fffffff; #1000 //Double negative with overflow posibility
 $display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
-command = 3'b000; operandA = 8'hf0000000; operandB = 8'h00000000; #1000 
+command = 3'b000; operandA = 8'h70000000; operandB = 8'h70000000; #1000 //Double positive with overflow posibility
 $display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
-command = 3'b000; operandA = 8'hf0000000; operandB = 8'hf0000000; #1000 
+//Testing cases with zeros
+command = 3'b000; operandA = 8'h00000001; operandB = 8'h00000000; #1000 //Positive and zero case
 $display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
-command = 3'b000; operandA = 8'h00000001; operandB = 8'h00000001; #1000 
+command = 3'b000; operandA = 8'h00000000; operandB = 8'h00000001; #1000 //Same case, reverse order
 $display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
-command = 3'b000; operandA = 8'h90000000; operandB = 8'h90000000; #1000 
+command = 3'b000; operandA = 8'h00000000; operandB = 8'hffffffff; #1000 //Negative and zero case
 $display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
-
-command = 3'b000; operandA = 8'hf0000000; operandB = 8'h10000000; #1000 
+command = 3'b000; operandA = 8'hffffffff; operandB = 8'h00000000; #1000 //Same case, reverse order
 $display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
-command = 3'b000; operandA = 8'h10000000; operandB = 8'hf0000000; #1000 
+//Testing remaining cases
+command = 3'b000; operandA = 8'hffffffff; operandB = 8'h00000001; #1000 //Small negative and small positive case
 $display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
-command = 3'b000; operandA = 8'h90000000; operandB = 8'h10000000; #1000 
+command = 3'b000; operandA = 8'h00000001; operandB = 8'hffffffff; #1000 //Same case, reverse order
 $display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
-command = 3'b000; operandA = 8'h10000000; operandB = 8'h90000000; #1000 
+command = 3'b000; operandA = 8'hfffffff9; operandB = 8'h00000001; #1000 //Large negative and small positive case
 $display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
-command = 3'b000; operandA = 8'h70000000; operandB = 8'h70000000; #1000 
+command = 3'b000; operandA = 8'h10000000; operandB = 8'hfffffff9; #1000 //Same case, reverse order 
 $display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
-command = 3'b000; operandA = 8'h70000000; operandB = 8'hf0000000; #1000 
+command = 3'b000; operandA = 8'h70000000; operandB = 8'hffffffff; #1000 //Large positive and small negative case
 $display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
-command = 3'b000; operandA = 8'hf0000000; operandB = 8'h70000000; #1000 
+command = 3'b000; operandA = 8'hffffffff; operandB = 8'h70000000; #1000  //Same case, reverse order
 $display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
-command = 3'b000; operandA = 8'h00000000; operandB = 8'h00000000; #1000 
+command = 3'b000; operandA = 8'h70000000; operandB = 8'h9fffffff; #1000 //Large positive and large negative case
+$display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
+command = 3'b000; operandA = 8'h9fffffff; operandB = 8'h70000000; #1000  //Same case, reverse order
 $display("%b  %b  %b || %b ||  %b  %b  %b  | All false", operandA, operandB, command, result, carryout, overflow, zero);
 end
 endmodule
