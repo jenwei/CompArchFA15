@@ -1,3 +1,5 @@
 ﻿Meeting
 10/8/2015 	3 hours Drawing out logic and starting verilog
 10/10/2015	1.5 hours Completing verilog + starting testing
+10/11/2015	5 hours Debugging 32bit adder and reimplementing subtract and SLT
+10/13/2015	2 hours Debugging 32bit subtracter and SLT, implementing decode
