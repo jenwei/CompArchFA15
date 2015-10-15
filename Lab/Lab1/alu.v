@@ -5,6 +5,77 @@
 `define Or   or   #20
 `define Not  not  #10
 
+
+module xore
+(
+output reg carryout=0,
+output reg overflow=0,
+output[31:0] XorOut,
+input [31:0] operandA,
+input [31:0] operandB
+);
+genvar i;
+for (i = 0; i < 32; i = i +1) begin
+  `Xor(XorOut[i],operandA[i],operandB[i]);
+end
+endmodule
+
+module ande
+(
+output reg carryout=0,
+output reg overflow=0,
+output[31:0] AndOut,
+input [31:0] operandA,
+input [31:0] operandB
+);
+genvar i;
+for (i = 0; i < 32; i = i +1) begin
+  `And(AndOut[i],operandA[i],operandB[i]);
+end
+endmodule
+
+module nande
+(
+output reg carryout=0,
+output reg overflow=0,
+output[31:0] NandOut,
+input [31:0] operandA,
+input [31:0] operandB
+);
+genvar i;
+for (i = 0; i < 32; i = i +1) begin
+  `Nand(NandOut[i],operandA[i],operandB[i]);
+end
+endmodule
+
+module nore
+(
+output reg carryout=0,
+output reg overflow=0,
+output[31:0] NorOut,
+input [31:0] operandA,
+input [31:0] operandB
+);
+genvar i;
+for (i = 0; i < 32; i = i +1) begin
+  `Nor(NorOut[i],operandA[i],operandB[i]);
+end
+endmodule
+
+module ore
+(
+output reg carryout=0,
+output reg overflow=0,
+output[31:0] OrOut,
+input [31:0] operandA,
+input [31:0] operandB
+);
+genvar i;
+for (i = 0; i < 32; i = i +1) begin
+  `Or(OrOut[i],operandA[i],operandB[i]);
+end
+endmodule
+
 module fulladder
 (
 output carryout, 
@@ -23,14 +94,15 @@ wire two;
 `Xor xor1(sum, axorb, carryin);
 endmodule
 
-module add(carryout, overflow, result, A, B, carry);
-output carryout; 
-output overflow;
-output[31:0] result; 
-input[31:0] A;
-input[31:0] B;
-input carry;
-
+module add
+(
+output carryout,
+output overflow,
+output[31:0] result, 
+input[31:0] A,
+input[31:0] B,
+input carry
+);
 wire pos2neg, neg2pos;
 wire na31, nb31, ns31;
 wire[31:0] Carry;
@@ -50,15 +122,15 @@ assign {carryout} = Carry[31];
 `Or over(overflow, pos2neg, neg2pos);
 endmodule
 
-module sub(carryout, overflow, result, A, B);
-output carryout;
-output overflow;
-output[31:0] result; 
-input[31:0] A;
-input[31:0] B;
-
+module sub
+(
+output carryout,
+output overflow,
+output[31:0] result, 
+input[31:0] A,
+input[31:0] B
+);
 reg enable=1;
-reg carry=1;
 wire [31:0] newB;            
 genvar j;
 generate
@@ -66,19 +138,24 @@ generate
       `Xor modB(newB[j], B[j], enable);
     end
 endgenerate
-add subToAdd(carryout, overflow, result, A, newB, carry);
+add subToAdd(carryout, overflow, result, newB, A, enable);
 endmodule
 
 
 
-module slt (carryout, overflow, result, A, B);
-input [31:0] A, B;
-output reg carryout=0, overflow=0;
-output [31:0] result;
+module slt
+(
+output reg carryout=0,
+output reg overflow=0,
+output[31:0] result,
+input[31:0] A, 
+input[31:0] B
+);
 wire [31:0] Sum;
-wire deadover;
+wire deadover, deadcarry;
 genvar i;
-sub getSLT(result[0], deadover, Sum, A, B);
+sub getSLT(deadcarry, deadover, Sum, A, B);
+`Xor(result[0], deadover, Sum[31]);
 generate
 for(i=1;i<32;i=i+1) begin
   assign {result[i]} = 0;
@@ -106,23 +183,24 @@ genvar i;
 
 add yolo(co0, of0, result0, operandA, operandB, addcarry);
 sub swag(co1, of1, result1, operandA, operandB);
-//xore basic(co1, of1, result1, operandA, operandB);
+xore basic(co2, of2, result2, operandA, operandB);
 slt swole(co3, of3, result3, operandA, operandB);
-//ande hash(co1, of1, result1, operandA, operandB);
-//nande tag(co1, of1, result1, operandA, operandB);
-//nore yekko(co1, of1, result1, operandA, operandB);
-//ore gains(co1, of1, result1, operandA, operandB);
+ande hash(co4, of4, result4, operandA, operandB);
+nande tag(co5, of5, result5, operandA, operandB);
+nore yekko(co6, of6, result6, operandA, operandB);
+ore gains(co7, of7, result7, operandA, operandB);
 
-always @ (command or of0 or of1 or of3) begin
+always @ (command or operandA or operandB) begin
+#11000
 case (command) 
   0  : begin result = result0; carryout = co0; overflow = of0; end
   1  : begin result = result1; carryout = co1; overflow = of1; end
-//  2  : begin result = result2; carryout = co2; overflow = of2; end
+  2  : begin result = result2; carryout = co2; overflow = of2; end
   3  : begin result = result3; carryout = co3; overflow = of3; end
-//  4  : begin result = result4; carryout = co4; overflow = of4; end
-//  5  : begin result = result5; carryout = co5; overflow = of5; end
-//  6  : begin result = result6; carryout = co6; overflow = of6; end
-//  7  : begin result = result7; carryout = co7; overflow = of7; end
+  4  : begin result = result4; carryout = co4; overflow = of4; end
+  5  : begin result = result5; carryout = co5; overflow = of5; end
+  6  : begin result = result6; carryout = co6; overflow = of6; end
+  7  : begin result = result7; carryout = co7; overflow = of7; end
   default : $display("Error in ALU"); 
 endcase
 end
@@ -132,17 +210,61 @@ endmodule
 
 module testeverything;
 wire[31:0] result, result0;
-wire carry, carry0, zero, overflow, overflow0;
-reg[31:0] A, B;
+wire carryout, carry0, zero, overflow, overflow0;
+reg[31:0] operandA, operandB;
 reg[2:0] command;
 reg carryin=0;
 
-alu swagswag(carry, zero, overflow, result, A, B, command);
-add yoloyolo(carry0, overflow0, result0, A, B, carryin);
-initial begin: yolo
-A=32'b10011101111100001000010111101000; B=32'b10000101111100001000010111110000;
-command = 3'b001; #100000000
-$display("Test ALU | %b %b %b %b", carry, zero, overflow, result);
-$display("Test ADD | %b %b %b", carry0, overflow0, result0);
+alu swagswag(carryout, zero, overflow, result, operandA, operandB, command);
+//add yoloyolo(carry0, overflow0, result0, A, B, carryin);
+integer i;
+initial begin
+//A=32'b10011101111100001000010111101000; B=32'b10000101111100001000010111110000;
+//command = 3'b001; #100000000
+//$display("Test ALU | %b %b %b %b", carry, zero, overflow, result);
+//$display("Test ADD | %b %b %b", carry0, overflow0, result0);
+
+$display("Structural ALU");
+  for (i = 0; i < 8; i = i +1) begin
+	$display("            OperandA                          OperandB              COM ||               Result             ||  Co Of Zr | Expected Output");
+	//Testing doubles
+	command = i; operandA = 32'h00000000; operandB = 32'h00000000; #1000000 //All zero case
+	$display("%b  %b  %b || %b ||  %b  %b  %b  | %b", operandA, operandB, command, result, carryout, overflow, zero, result);
+	command = i; operandA = 32'hffffffff; operandB = 32'hffffffff; #1000000 //Double negative case
+	$display("%b  %b  %b || %b ||  %b  %b  %b  | %b", operandA, operandB, command, result, carryout, overflow, zero, result);
+	command = i; operandA = 32'h00000001; operandB = 32'h00000001; #1000000 //Double positive case
+	$display("%b  %b  %b || %b ||  %b  %b  %b  | %b", operandA, operandB, command, result, carryout, overflow, zero, result);
+	command = i; operandA = 32'h9fffffff; operandB = 32'h9fffffff; #1000000 //Double negative with overflow posibility
+	$display("%b  %b  %b || %b ||  %b  %b  %b  | %b", operandA, operandB, command, result, carryout, overflow, zero, result);
+	command = i; operandA = 32'h70000000; operandB = 32'h70000000; #1000000 //Double positive with overflow posibility
+	$display("%b  %b  %b || %b ||  %b  %b  %b  | %b", operandA, operandB, command, result, carryout, overflow, zero, result);
+	//Testing cases with zeros
+	command = i; operandA = 32'h00000001; operandB = 32'h00000000; #1000000 //Positive and zero case
+	$display("%b  %b  %b || %b ||  %b  %b  %b  | %b", operandA, operandB, command, result, carryout, overflow, zero, result);
+	command = i; operandA = 32'h00000000; operandB = 32'h00000001; #1000000 //Same case, reverse order
+	$display("%b  %b  %b || %b ||  %b  %b  %b  | %b", operandA, operandB, command, result, carryout, overflow, zero, result);
+	command = i; operandA = 32'h00000000; operandB = 32'hffffffff; #1000000 //Negative and zero case
+	$display("%b  %b  %b || %b ||  %b  %b  %b  | %b", operandA, operandB, command, result, carryout, overflow, zero, result);
+	command = i; operandA = 32'hffffffff; operandB = 32'h00000000; #1000000 //Same case, reverse order
+	$display("%b  %b  %b || %b ||  %b  %b  %b  | %b", operandA, operandB, command, result, carryout, overflow, zero, result);
+	//Testing remaining cases
+	command = i; operandA = 32'hffffffff; operandB = 32'h00000001; #1000000 //Small negative and small positive case
+	$display("%b  %b  %b || %b ||  %b  %b  %b  | %b", operandA, operandB, command, result, carryout, overflow, zero, result);
+	command = i; operandA = 32'h00000001; operandB = 32'hffffffff; #1000000 //Same case, reverse order
+	$display("%b  %b  %b || %b ||  %b  %b  %b  | %b", operandA, operandB, command, result, carryout, overflow, zero, result);
+	command = i; operandA = 32'hfffffff9; operandB = 32'h00000001; #1000000 //Large negative and small positive case
+	$display("%b  %b  %b || %b ||  %b  %b  %b  | %b", operandA, operandB, command, result, carryout, overflow, zero, result);
+	command = i; operandA = 32'h10000000; operandB = 32'hfffffff9; #1000000 //Same case, reverse order 
+	$display("%b  %b  %b || %b ||  %b  %b  %b  | %b", operandA, operandB, command, result, carryout, overflow, zero, result);
+	command = i; operandA = 32'h70000000; operandB = 32'hffffffff; #1000000 //Large positive and small negative case
+	$display("%b  %b  %b || %b ||  %b  %b  %b  | %b", operandA, operandB, command, result, carryout, overflow, zero, result);
+	command = i; operandA = 32'hffffffff; operandB = 32'h70000000; #1000000  //Same case, reverse order
+	$display("%b  %b  %b || %b ||  %b  %b  %b  | %b", operandA, operandB, command, result, carryout, overflow, zero, result);
+	command = i; operandA = 32'h70000000; operandB = 32'h9fffffff; #1000000 //Large positive and large negative case
+	$display("%b  %b  %b || %b ||  %b  %b  %b  | %b", operandA, operandB, command, result, carryout, overflow, zero, result);
+	command = i; operandA = 32'h9fffffff; operandB = 32'h70000000; #1000000  //Same case, reverse order
+	$display("%b  %b  %b || %b ||  %b  %b  %b  | %b", operandA, operandB, command, result, carryout, overflow, zero, result);
+  end
+
 end
 endmodule
