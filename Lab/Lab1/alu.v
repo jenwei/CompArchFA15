@@ -201,7 +201,7 @@ ore ored(co7, of7, result7, operandA, operandB);
 
 //MUX passes the desired result to the output with the command selector.\
 always @ (command or operandA or operandB) begin
-#11000 //Delay should be the longest time to completion for any one module in the ALU, most likely SLT
+#10000 //Delay should be the longest time to completion for any one module in the ALU, most likely SLT
 case (command) 
   0  : begin result = result0; carryout = co0; overflow = of0; end
   1  : begin result = result1; carryout = co1; overflow = of1; end
