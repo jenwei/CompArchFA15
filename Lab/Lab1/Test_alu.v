@@ -5,9 +5,18 @@
 `define Or   or   #20
 `define Not  not  #10
 
+`define ADD  3'd0
+`define SUB  3'd1
+`define XOR  3'd2
+`define SLT  3'd3
+`define AND  3'd4
+`define NAND 3'd5
+`define NOR  3'd6
+`define OR   3'd7
+
 module ALU(result,carryout,zero,overflow,operandA,operandB,command);
 
-output[31:0]    result;
+output reg[31:0]	result;
 output          carryout;
 output          zero;
 output          overflow;
@@ -19,37 +28,46 @@ wire[7:0] out;
 
 structuralDecoder decode(out, command);
 
+
+
+wire[31:0] AddOut,SubOut,XorOut,SLTOut,AndOut,NandOut,NorOut,OrOut;
+
+Adder32bit add(AddOut,carryout,overflow,operandA,operandB);
+Subtracter32bit sub(SubOut,carryout,overflow,operandA,operandB);
+
 genvar i;
 
-wire[31:0] AdderOut,SubOut,XorOut,SLTOut,AndOut,Nandout,NorOut,OrOut;
+for (i = 0; i < 32; i = i +1) begin
+  `Xor(XorOut[i],operandA[i],operandB[i]);
+end
 
-//if (out[0]) begin
-//  Adder32bit(result,carryout,overflow,operandA,operandB);
-//end
-//if (out[1])
-//  Subtracter32bit(result,carryout,overflow,operandA,operandB);
-//if (out[2] == 1)
-//  for (i = 1; i < 31; i = i +1) begin
-//    `Xor(result[i],operandA[i],operandB[i]);
-//  end
-//if (out[3] == 1)
-//  SLT32bit(result,operandA,operandB);
-//if (out[4] == 1)
-//  for (i = 1; i < 31; i = i +1) begin
-//    `And(result[i],operandA[i],operandB[i]);
-//  end
-//if (out[5] == 1)
-//  for (i = 1; i < 31; i = i +1) begin
-//    `Nand(result[i],operandA[i],operandB[i]);
-//  end
-//if (out[6] == 1)
-//  for (i = 1; i < 31; i = i +1) begin
-//    `Nor(result[i],operandA[i],operandB[i]);
-//  end
-//if (out[7] == 1)
-//  for (i = 1; i < 31; i = i +1) begin
-//    `Or(result[i],operandA[i],operandB[i]);
-//  end
+
+SLT32bit slt(SLTOut,operandA,operandB);
+for (i = 0; i < 32; i = i +1) begin
+  `And(AndOut[i],operandA[i],operandB[i]);
+end
+for (i = 0; i < 32; i = i +1) begin
+  `Nand(NandOut[i],operandA[i],operandB[i]);
+end
+for (i = 0; i < 32; i = i +1) begin
+  `Nor(NorOut[i],operandA[i],operandB[i]);
+end
+for (i = 0; i < 32; i = i +1) begin
+  `Or(OrOut[i],operandA[i],operandB[i]);
+end
+
+  always @(command) begin
+    case (command)
+	3'd0 : begin assign result = AddOut;	end
+ 	3'd1 : begin assign result = SubOut;	end
+	3'd2 : begin assign result = XorOut;	end
+ 	3'd3 : begin assign result = SLTOut;	end
+	3'd4 : begin assign result = AndOut;	end
+ 	3'd5 : begin assign result = NandOut;	end
+	3'd6 : begin assign result = NorOut;	end
+ 	3'd7 : begin assign result = OrOut;	end
+    endcase
+  end
 
 endmodule
 
@@ -76,8 +94,7 @@ wire[31:0] AdderOut,SubOut,XorOut,SLTOut,AndOut,Nandout,NorOut,OrOut;
 `And ag7(out[7],addr[0],addr[1],addr[2]);
 endmodule
 
-
-module STL(out,seto,A,B,seti);
+module SLTbit(out,seto,A,B,seti);
 output 		out;
 output		seto;
 input		A;
@@ -128,7 +145,7 @@ genvar i;
 
 wire midcarry;
 Adder addbit0(sum[0],midcarry,a[0],b[0],0);
-for (i = 1; i < 31; i = i +1) begin
+for (i = 0; i < 32; i = i +1) begin
 Adder addbit(sum[i],midcarry,a[i],b[i],midcarry);
 end
 wire pos2neg, neg2pos;
@@ -141,6 +158,8 @@ wire na31, nb31, ns31;
 `Or over(overflow, pos2neg, neg2pos);
 endmodule
 
+
+
 module Subtracter32bit(sum,carryout,overflow,a,b);
   output[31:0] sum;  // 2's complement sum of a and b
   output carryout;  // Carry out of the summation of a and b
@@ -152,7 +171,7 @@ genvar i;
 
 wire midcarry;
 Subtracter subbit0(sum[0],midcarry,a[0],b[0],1);
-for (i = 1; i < 31; i = i +1) begin
+for (i = 0; i < 32; i = i +1) begin
 Subtracter subbit(sum[i],midcarry,a[i],b[i],midcarry);
 end
 wire pos2neg, neg2pos;
@@ -174,9 +193,9 @@ genvar i;
 
 wire setcarry;
 wire[31:0] outcarry;
-SLT slt1(outcarry[0],setcarry,b[0],a[0],1);
-for (i = 1; i < 31; i = i +1) begin
-SLT slt(outcarry[i],setcarry,b[i],a[i],setcarry);
+SLTbit slt1(outcarry[0],setcarry,b[0],a[0],1);
+for (i = 0; i < 32; i = i +1) begin
+SLTbit slt(outcarry[i],setcarry,b[i],a[i],setcarry);
 end
 
 `Or resor(result[0],outcarry);
