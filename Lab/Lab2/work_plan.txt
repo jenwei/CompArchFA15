@@ -1,0 +1,41 @@
+CompArch Lab 2: SPI Memory
+Jacob Riedel, Jennifer Vaccaro, Jennifer Wei
+
+Work Plan
+Task          		     | Time Estimate (Hrs) | Planned Completion Date 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Input Conditioning			
+	inputconditioner.v 		0.50					10/31
+	inputconditioner.t.v 	0.50					10/31
+	inputconditioner.do     0.50					10/31
+	circuit diagram			1.00					10/31
+	analysis 				1.00
+
+Shift Register		
+	shiftregister.v 		1.50					
+	shiftregister.t.v 		1.50
+	test bench strategy		1.00
+
+Midpoint Check In
+	load SPI and test 		1.50
+	midpoint.v 				1.50
+	test sequence design    1.00
+	test seq Documentation 	1.50
+	submit video			0.25					11/02
+
+SPI Memory
+	spimemeory.v 			4.00
+	test on FPGA			1.50
+	testing
+	test strategy
+
+Fault Injection
+	Implementation 			1.00
+	explain test pattern	1.00
+
+Documentation
+	Work Plan Reflection	0.25
+	Editing Report			1.00 					11/09 @ 5pm
+
+TOTAL						21.75
+	
