@@ -47,8 +47,11 @@ input[31:0] input29;
 input[31:0] input30;
 input[31:0] input31;
 
-wire[31:0] mux[31:0]; // Create a 2D array of wires
-assign mux[0] = input0; // Connect the sources of the array 32 times
+// Create a 2D array of wires
+wire[31:0] mux[31:0]; 
+
+// Connect the sources of the array 32 times (not the most efficient method, but it works)
+assign mux[0] = input0; 
 assign mux[1] = input1;
 assign mux[2] = input2;
 assign mux[3] = input3;
@@ -81,5 +84,6 @@ assign mux[29] = input29;
 assign mux[30] = input30;
 assign mux[31] = input31;
 
-assign out = mux[address]; // Connect the output of the array
+// Connect the output of the array
+assign out = mux[address]; 
 endmodule

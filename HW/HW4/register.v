@@ -17,7 +17,7 @@ endmodule
 
 // module for a register made up of 32-bits worth of D flip flops
 module register32 (q,d,wrenable,clk);
-output reg[31:0] q;
+output wire[31:0] q;
 input[31:0] d;
 input wrenable;
 input clk;
@@ -26,7 +26,7 @@ input clk;
 genvar index;
 generate
 for (index=0; index<32; index=index+1)begin
-register(q[index],d[index],wrenable,clk);
+register OneBitRegister(q[index],d[index],wrenable,clk);
 end
 endgenerate
 endmodule

@@ -108,8 +108,8 @@ output reg		Clk
     #10
 
   // Test Case 1: 
-  //   Write '42' to register 2, verify with Read Ports 1 and 2
-  //   (Passes because example register file is hardwired to return 42)
+  // Write '42' to register 2, verify with Read Ports 1 and 2
+  // (Passes because example register file is hardwired to return 42)
   WriteRegister = 5'd2;
   WriteData = 32'd42;
   RegWrite = 1;
@@ -122,10 +122,13 @@ output reg		Clk
     dutpassed = 0;	// Set to 'false' on failure
     $display("Test Case 1 Failed");
   end
+  else begin
+    $display("Test Case 1 Passed");
+  end
 
   // Test Case 2: 
-  //   Write '15' to register 2, verify with Read Ports 1 and 2
-  //   (Fails with example register file, but should pass with yours)
+  // Write '15' to register 2, verify with Read Ports 1 and 2
+  // (Fails with example register file, but should pass with yours)
   WriteRegister = 5'd2;
   WriteData = 32'd15;
   RegWrite = 1;
@@ -137,7 +140,88 @@ output reg		Clk
     dutpassed = 0;
     $display("Test Case 2 Failed");
   end
+  else begin
+    $display("Test Case 2 Passed");
+  end
 
+// Test Case 3:
+//   Check that write/enable is broken by setting write/enable off and seeing if the new data was stored (if it does -> broken, else -> works)
+  WriteRegister = 5'd2; // same register as test case 2
+  WriteData = 32'd5;
+  RegWrite = 0; // enable is off
+  ReadRegister1 = 5'd2;
+  ReadRegister2 = 5'd2;
+  #5 Clk=1; #5 Clk=0;
+
+  if((ReadData1 == 5) || (ReadData2 == 5))
+    begin
+      dutpassed = 0;
+      $display("Write Enable -- BROKEN -- Test Case 3 Failed");
+    end	
+  else begin
+    $display("Write Enable -- WORKS -- Test Case 3 Passed");
+  end
+
+// Test Case 4:
+// Checks to see if all registers are written to when decoder is broken (if it does -> broken, else -> works)
+
+  WriteRegister = 5'd2; // Arbitrary register chosen from Test Case 2
+  WriteData = 32'd25; // Arbitrary value chosen different from previous test cases
+  RegWrite = 1;
+  ReadRegister1 = 5'd15; // Arbitrary first register to read
+  ReadRegister2 = 5'd20; // Arbitrary second register to read 
+  #5 Clk=1; #5 Clk=0;
+
+  // Check that the data read wasn't stored in other registers 
+  if((ReadData1 == 25) || (ReadData2 == 25)) begin
+    dutpassed = 0;
+    $display("Decoder -- BROKEN -- Test Case 4 Failed");
+  end
+  else begin
+    $display("Decoder -- WORKS -- Test Case 4 Passed");
+  end
+
+// Test Case 5:
+// Checks if register zero is actually a register instead of the constant value zero (if it is -> broken, else -> works)
+  WriteRegister = 5'd0;
+  WriteData = 32'd22; // Attempt to write '22' to register 0
+  RegWrite = 1;
+  ReadRegister1 = 5'd0;
+  ReadRegister2 = 5'd0;
+  #5 Clk=1; #5 Clk=0;
+
+  if ((ReadData1 != 0) || (ReadData2 != 0)) begin
+    dutpassed = 0;
+    $display("Register0 -- BROKEN -- Test Case 5 Failed");
+  end
+  else begin
+    $display("Register0 -- WORKS -- Test Case 5 Passed");
+  end
+
+
+// Test Case 6:
+// Checks if Port 2 broken and always reads register 17 (if it does -> broken, else -> works)  
+  WriteRegister = 5'd2; // Writing to arbitrarily to Register 2
+  WriteData = 32'd500;
+  RegWrite = 1;
+  ReadRegister1 = 5'd2;
+  ReadRegister2 = 5'd2;
+  #5 Clk=1; #5 Clk=0;
+
+  WriteRegister = 5'd17; // Writing to Register 17
+  WriteData = 32'd1200; // Choosing an arbitrary value of '1200' which is different from the value above and from other test cases
+  RegWrite = 1;
+  ReadRegister1 = 5'd2;
+  ReadRegister2 = 5'd17;
+  #5 Clk=1; #5 Clk=0;
+
+  if(ReadData1 == ReadData2) begin
+    dutpassed = 0;
+    $display("Port 2 -- BROKEN -- Test Case 6 Failed");
+  end
+  else begin
+    $display("Port 2 -- WORKS -- Test Case 6 Passed");
+  end
 
   // All done!  Wait a moment and signal test completion.
   #5
