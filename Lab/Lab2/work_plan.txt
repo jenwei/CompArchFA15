@@ -4,38 +4,38 @@ Jacob Riedel, Jennifer Vaccaro, Jennifer Wei
 Work Plan
 Task          		     | Time Estimate (Hrs) | Planned Completion Date 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-Input Conditioning			
-	inputconditioner.v 		0.50					10/31
-	inputconditioner.t.v 	0.50					10/31
-	inputconditioner.do     0.50					10/31
-	circuit diagram			1.00					10/31
-	analysis 				1.00
+Input Conditioning									10/31
+	inputconditioner.v 		0.50					
+	inputconditioner.t.v 	0.50					
+	inputconditioner.do     0.25				
+	circuit diagram			1.00					
+	analysis 				1.00				
 
-Shift Register		
+Shift Register										11/01
 	shiftregister.v 		1.50					
 	shiftregister.t.v 		1.50
 	test bench strategy		1.00
 
-Midpoint Check In
+Midpoint Check In 									11/02
 	load SPI and test 		1.50
 	midpoint.v 				1.50
 	test sequence design    1.00
 	test seq Documentation 	1.50
-	submit video			0.25					11/02
+	submit video			0.25				
 
-SPI Memory
-	spimemeory.v 			4.00
-	test on FPGA			1.50
-	testing
-	test strategy
+SPI Memory											11/04
+	spimemory.v 			4.00
+	test on FPGA			0.50
+	testing					1.00
+	test strategy			0.25
 
-Fault Injection
+Fault Injection										11/06
 	Implementation 			1.00
 	explain test pattern	1.00
 
-Documentation
+Documentation										11/09 @ 5PM
 	Work Plan Reflection	0.25
-	Editing Report			1.00 					11/09 @ 5pm
+	Editing Report			1.00 		
 
-TOTAL						21.75
+TOTAL						22.00
 	
