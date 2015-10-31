@@ -53,6 +53,26 @@ module testshiftregister();
 	#100;
 	serialDataIn = 0;
 	#100;
+	
+	// TEST CASE 2: parallel input
+	parallelLoad = 1;
+	#100;
+	peripheralClkEdge = 1;
+	#10;
+	parallelDataIn = 8'd12;
+	#10;
+	peripheralClkEdge = 0;
+	#10;
+	peripheralClkEdge = 1;
+	#20;
+	parallelDataIn = 8'd32;
+	peripheralClkEdge = 0;
+	parallelDataIn = 8'd5;
+	#100;
+	parallelDataIn = 8'd40;
+	#100;
+	parallelDataIn = 8'd2;
+	#100;
 	$stop;
 
     end
