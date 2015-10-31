@@ -1,0 +1,13 @@
+
+****** Webtalk v2015.2 (64-bit)
+  **** SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
+  **** IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
+    ** Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
+
+source C:/Users/rapto/OneDrive/Documents/GitHub/CALab0/CompArchFA15/Lab/Lab2/Vivado_work/Lab_2/Lab_2.hw/webtalk/labtool_webtalk.tcl -notrace
+webtalk_transmit: Time (s): cpu = 00:00:00 ; elapsed = 00:00:20 . Memory (MB): peak = 62.285 ; gain = 0.000
+
+    while executing
+"webtalk_transmit -clientid 3000989125 -regid "211095007_0_0_747" -xml C:/Users/rapto/OneDrive/Documents/GitHub/CALab0/CompArchFA15/Lab/Lab2/Vivado_wor..."
+    (file "C:/Users/rapto/OneDrive/Documents/GitHub/CALab0/CompArchFA15/Lab/Lab2/Vivado_work/Lab_2/Lab_2.hw/webtalk/labtool_webtalk.tcl" line 28)
+INFO: [Common 17-206] Exiting Webtalk at Sat Oct 31 16:53:33 2015...
