@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xc7z010clg400-1" LaunchTime="1446324499">
+<GenRun Id="impl_1" LaunchPart="xc7z010clg400-1" LaunchTime="1446430668">
   <File Type="OPT-DCP" Name="midpoint_opt.dcp"/>
   <File Type="RUN-CONSTRS" Name="$PDATADIR/runs/impl_1/constrs_in.xml"/>
   <File Type="RUN-SRCS" Name="$PDATADIR/runs/impl_1/sources.xml"/>
@@ -71,7 +71,7 @@
     <File Path="$PSRCDIR/sources_1/imports/Lab2/midpoint.v">
       <FileInfo>
         <Attr Name="ImportPath" Val="$PPRDIR/../../midpoint.v"/>
-        <Attr Name="ImportTime" Val="1446322970"/>
+        <Attr Name="ImportTime" Val="1446430398"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -98,9 +98,7 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2015">
-      <Desc>Vivado Implementation Defaults</Desc>
-    </StratHandle>
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2015"/>
     <Step Id="init_design"/>
     <Step Id="opt_design"/>
     <Step Id="power_opt_design"/>

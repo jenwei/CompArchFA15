@@ -1,7 +1,7 @@
 Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2015.2 (win64) Build 1266856 Fri Jun 26 16:35:25 MDT 2015
-| Date         : Sat Oct 31 16:50:36 2015
+| Date         : Sun Nov 01 21:20:17 2015
 | Host         : DESKTOP-QFKKJIJ running 64-bit major release  (build 9200)
 | Command      : report_utilization -file midpoint_utilization_placed.rpt -pb midpoint_utilization_placed.pb
 | Design       : midpoint
@@ -56,8 +56,8 @@ Table of Contents
 | 0     |          Yes |           - |            - |
 | 0     |          Yes |           - |          Set |
 | 0     |          Yes |           - |        Reset |
-| 0     |          Yes |         Set |            - |
-| 32    |          Yes |       Reset |            - |
+| 4     |          Yes |         Set |            - |
+| 28    |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -173,12 +173,13 @@ Table of Contents
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| FDRE     |   32 |        Flop & Latch |
+| FDRE     |   28 |        Flop & Latch |
 | IBUF     |    9 |                  IO |
 | LUT4     |    8 |                 LUT |
 | LUT3     |    8 |                 LUT |
 | OBUF     |    4 |                  IO |
 | LUT6     |    4 |                 LUT |
+| FDSE     |    4 |        Flop & Latch |
 | LUT2     |    1 |                 LUT |
 | BUFG     |    1 |               Clock |
 +----------+------+---------------------+

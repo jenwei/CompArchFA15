@@ -16,7 +16,6 @@ module midpoint
 input 	     clk,
 input  [3:0] sw,
 input  [3:0] btn,
-input  [7:0] xA5,
 output[3:0] led
 );
 
@@ -54,7 +53,7 @@ inputconditioner ipc3(.clk(clk),
 shiftregister #(8) shr(.clk(clk), 
     		           .peripheralClkEdge(rising2),
     		           .parallelLoad(falling0), 
-    		           .parallelDataIn(xA5), 
+    		           .parallelDataIn(8'hA5), 
     		           .serialDataIn(conditioned1), 
     		           .parallelDataOut(parallelDataOut), 
     		           .serialDataOut(serialDataOut));
