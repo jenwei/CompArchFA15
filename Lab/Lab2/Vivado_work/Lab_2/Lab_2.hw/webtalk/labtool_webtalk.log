@@ -5,9 +5,6 @@
     ** Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
 
 source C:/Users/rapto/OneDrive/Documents/GitHub/CALab0/CompArchFA15/Lab/Lab2/Vivado_work/Lab_2/Lab_2.hw/webtalk/labtool_webtalk.tcl -notrace
-webtalk_transmit: Time (s): cpu = 00:00:00 ; elapsed = 00:00:20 . Memory (MB): peak = 62.285 ; gain = 0.000
-
-    while executing
-"webtalk_transmit -clientid 3000989125 -regid "211095007_0_0_747" -xml C:/Users/rapto/OneDrive/Documents/GitHub/CALab0/CompArchFA15/Lab/Lab2/Vivado_wor..."
-    (file "C:/Users/rapto/OneDrive/Documents/GitHub/CALab0/CompArchFA15/Lab/Lab2/Vivado_work/Lab_2/Lab_2.hw/webtalk/labtool_webtalk.tcl" line 28)
-INFO: [Common 17-206] Exiting Webtalk at Sat Oct 31 16:53:33 2015...
+INFO: [Common 17-186] 'C:/Users/rapto/OneDrive/Documents/GitHub/CALab0/CompArchFA15/Lab/Lab2/Vivado_work/Lab_2/Lab_2.hw/webtalk/usage_statistics_ext_labtool.xml' has been successfully sent to Xilinx on Sun Nov 01 21:37:00 2015. For additional details about this file, please refer to the WebTalk help file at C:/Xilinx/Vivado/2015.2/doc/webtalk_introduction.html.
+webtalk_transmit: Time (s): cpu = 00:00:01 ; elapsed = 00:00:18 . Memory (MB): peak = 62.719 ; gain = 0.020
+INFO: [Common 17-206] Exiting Webtalk at Sun Nov 01 21:37:00 2015...
