@@ -27,16 +27,17 @@ output reg  negativeedge    // 1 clk pulse at falling edge of conditioned
         else begin
             if( counter == waittime) begin
                 counter <= 0;
-                conditioned <= synchronizer1;
-		positiveedge <= synchronizer1;
-		negativeedge <= !synchronizer1;
+                conditioned <= synchronizer1; // output is set to synchronizer1
+		positiveedge <= synchronizer1; // positiveedge is set high if synchronizer1 is high and low if not
+		negativeedge <= !synchronizer1; // negativeedge is set high if synchronizer1 is low and high if not  
             end
             else 
                 counter <= counter+1;
         end
-        synchronizer0 <= noisysignal;
-        synchronizer1 <= synchronizer0;
+        synchronizer0 <= noisysignal; // set synchronizer0 to the noisysignal
+        synchronizer1 <= synchronizer0; // set synchronizer to synchronizer0
 	
+	// If positiveedge or negativeedge are high, reset to 0 (since we only want them to be around for one clock cycle)	
 	if (positiveedge || negativeedge) begin
 		positiveedge <= 0;
 		negativeedge <= 0;
