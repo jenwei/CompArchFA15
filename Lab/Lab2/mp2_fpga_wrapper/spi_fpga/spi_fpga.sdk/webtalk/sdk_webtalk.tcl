@@ -1,6 +1,6 @@
-webtalk_init -webtalk_dir C:\\comparch\\mp2_fpga_wrapper\\mp2_fpga_wrapper\\spi_fpga\\spi_fpga.sdk\\webtalk
+webtalk_init -webtalk_dir C:\\Users\\rapto\\OneDrive\\Documents\\GitHub\\CALab0\\CompArchFA15\\Lab\\Lab2\\mp2_fpga_wrapper\\spi_fpga\\spi_fpga.sdk\\webtalk
 webtalk_register_client -client project
-webtalk_add_data -client project -key date_generated -value "Thu Oct 22 01:54:54 2015" -context "software_version_and_target_device"
+webtalk_add_data -client project -key date_generated -value "Tue Nov 3 20:54:08 2015" -context "software_version_and_target_device"
 webtalk_add_data -client project -key product_version -value "SDK v2015.2" -context "software_version_and_target_device"
 webtalk_add_data -client project -key build_version -value "2015.2" -context "software_version_and_target_device"
 webtalk_add_data -client project -key os_platform -value "amd64" -context "software_version_and_target_device"
@@ -12,9 +12,9 @@ webtalk_add_data -client project -key target_family -value "NA" -context "softwa
 webtalk_add_data -client project -key target_device -value "NA" -context "software_version_and_target_device"
 webtalk_add_data -client project -key target_package -value "NA" -context "software_version_and_target_device"
 webtalk_add_data -client project -key target_speed -value "NA" -context "software_version_and_target_device"
-webtalk_add_data -client project -key random_id -value "ib2kei2vdihqqnhvgf06i393sl" -context "software_version_and_target_device"
-webtalk_add_data -client project -key project_id -value "2015.2_4" -context "software_version_and_target_device"
-webtalk_add_data -client project -key project_iteration -value "4" -context "software_version_and_target_device"
+webtalk_add_data -client project -key random_id -value "a0i0isf4v1vme98fqjimcfjcmf" -context "software_version_and_target_device"
+webtalk_add_data -client project -key project_id -value "2015.2_1" -context "software_version_and_target_device"
+webtalk_add_data -client project -key project_iteration -value "1" -context "software_version_and_target_device"
 webtalk_add_data -client project -key os_name -value "" -context "user_environment"
 webtalk_add_data -client project -key os_release -value "" -context "user_environment"
 webtalk_add_data -client project -key cpu_name -value "" -context "user_environment"
@@ -22,12 +22,12 @@ webtalk_add_data -client project -key cpu_speed -value "" -context "user_environ
 webtalk_add_data -client project -key total_processors -value "" -context "user_environment"
 webtalk_add_data -client project -key system_ram -value "" -context "user_environment"
 webtalk_register_client -client sdk
-webtalk_add_data -client sdk -key uid -value "1445492539691" -context "sdk\\\\hardware/1445492539691"
-webtalk_add_data -client sdk -key isZynq -value "true" -context "sdk\\\\hardware/1445492539691"
-webtalk_add_data -client sdk -key Processors -value "2" -context "sdk\\\\hardware/1445492539691"
-webtalk_add_data -client sdk -key VivadoVersion -value "2015.2.1" -context "sdk\\\\hardware/1445492539691"
-webtalk_add_data -client sdk -key Arch -value "zynq" -context "sdk\\\\hardware/1445492539691"
-webtalk_add_data -client sdk -key Device -value "7z010" -context "sdk\\\\hardware/1445492539691"
-webtalk_add_data -client sdk -key IsHandoff -value "true" -context "sdk\\\\hardware/1445492539691"
-webtalk_transmit -clientid 2137254379 -regid "" -xml C:\\comparch\\mp2_fpga_wrapper\\mp2_fpga_wrapper\\spi_fpga\\spi_fpga.sdk\\webtalk\\usage_statistics_ext_sdk.xml -html C:\\comparch\\mp2_fpga_wrapper\\mp2_fpga_wrapper\\spi_fpga\\spi_fpga.sdk\\webtalk\\usage_statistics_ext_sdk.html -wdm C:\\comparch\\mp2_fpga_wrapper\\mp2_fpga_wrapper\\spi_fpga\\spi_fpga.sdk\\webtalk\\sdk_webtalk.wdm -intro "<H3>SDK Usage Report</H3><BR>"
+webtalk_add_data -client sdk -key uid -value "1446601552605" -context "sdk\\\\hardware/1446601552605"
+webtalk_add_data -client sdk -key isZynq -value "true" -context "sdk\\\\hardware/1446601552605"
+webtalk_add_data -client sdk -key Processors -value "2" -context "sdk\\\\hardware/1446601552605"
+webtalk_add_data -client sdk -key VivadoVersion -value "2015.2.1" -context "sdk\\\\hardware/1446601552605"
+webtalk_add_data -client sdk -key Arch -value "zynq" -context "sdk\\\\hardware/1446601552605"
+webtalk_add_data -client sdk -key Device -value "7z010" -context "sdk\\\\hardware/1446601552605"
+webtalk_add_data -client sdk -key IsHandoff -value "true" -context "sdk\\\\hardware/1446601552605"
+webtalk_transmit -clientid 895892483 -regid "" -xml C:\\Users\\rapto\\OneDrive\\Documents\\GitHub\\CALab0\\CompArchFA15\\Lab\\Lab2\\mp2_fpga_wrapper\\spi_fpga\\spi_fpga.sdk\\webtalk\\usage_statistics_ext_sdk.xml -html C:\\Users\\rapto\\OneDrive\\Documents\\GitHub\\CALab0\\CompArchFA15\\Lab\\Lab2\\mp2_fpga_wrapper\\spi_fpga\\spi_fpga.sdk\\webtalk\\usage_statistics_ext_sdk.html -wdm C:\\Users\\rapto\\OneDrive\\Documents\\GitHub\\CALab0\\CompArchFA15\\Lab\\Lab2\\mp2_fpga_wrapper\\spi_fpga\\spi_fpga.sdk\\webtalk\\sdk_webtalk.wdm -intro "<H3>SDK Usage Report</H3><BR>"
 webtalk_terminate
