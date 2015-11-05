@@ -12,8 +12,8 @@ output reg	MISO_buf,
 output reg	dataMem_WE,
 output reg	addr_WE,
 output reg	shiftReg_WE,
-input 	clkEdge,
-input 	chipSel,
+input 	clkEdge, // Runs on the posedge of sclk fro spi
+input 	chipSel, // Hard reset for the FSM
 input 	shiftRegOut0
 );
 
@@ -33,7 +33,7 @@ always @(posedge clkEdge) begin
 	end
 	case(curState)
 		3'b000 : 
-			if (curCount == 8) begin
+			if (curCount == 7) begin
 				curState <= curState + 1;
 			end 
 			else begin
@@ -59,7 +59,7 @@ always @(posedge clkEdge) begin
 			end
 		3'b100 : 
 			
-			if (curCount == 8) begin
+			if (curCount == 7) begin
 				curState <= curState + 3;
 				MISO_buf <= 1;
 			end
@@ -68,7 +68,7 @@ always @(posedge clkEdge) begin
 				curCount = curCount + 1;
 			end
 		3'b101 : 
-			if (curCount == 8) begin
+			if (curCount == 7) begin
 				curState <= curState + 1;
 			end
 			else begin
