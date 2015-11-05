@@ -59,7 +59,7 @@ datamemory dtmm(.clk(clk),
 			.writeEnable(dm_WE),
 			.dataOut(parallelDataIn));
 
-fintestatemachine fsm(.MISO_buf(misoBuf),
+finitestatemachine fsm(.MISO_buf(misoBuf),
 			.dataMem_WE(dm_WE),
 			.addr_WE(addr_WE),
 			.shiftReg_WE(sr_WE),
