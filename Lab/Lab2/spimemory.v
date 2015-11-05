@@ -20,6 +20,8 @@ wire conditioned1, rising1, falling1;
 wire conditioned0, rising0, falling0;
 wire serialDatOut;
 
+wire dm_WE, addr_WE, sr_WE;
+
 reg[7:0] AddrLat;
 
 reg SerialOutFF;
@@ -45,7 +47,7 @@ inputconditioner ipc2(.clk(clk),
 
 shiftregister #(8) shr(.clk(clk), 
     		           .peripheralClkEdge(rising1),
-    		           .parallelLoad(##WRITE FSM##), 
+    		           .parallelLoad(sr_WE), 
     		           .parallelDataIn(parallelDataIn), 
     		           .serialDataIn(conditioned0), 
     		           .parallelDataOut(parallelDataOut), 
@@ -54,20 +56,26 @@ shiftregister #(8) shr(.clk(clk),
 datamemory dtmm(.clk(clk),
 			.dataIn(parallelDataOut),
 			.address(AddrLat),
-			.writeEnable(##WRITE FSM##),
+			.writeEnable(dm_WE),
 			.dataOut(parallelDataIn));
+
+finitestatemachine fsm(.MISO_buf(misoBuf),
+			.dataMem_WE(dm_WE),
+			.addr_WE(addr_WE),
+			.shiftReg_WE(sr_WE),
+			.clkEdge(rising1),
+			.chipSel(conditioned2),
+			.shiftRegOut0(serialDataOut[0]));
 
 
 always @(posedge clk) begin
-        if(##WRITE FSM##) begin // This is the Address latch
+        if(addr_WE) begin // This is the Address latch
             AddrLat <= parallelDataOut;
 	end
 	if (falling1) begin //This is the DFF for the Serial Out
 	    SerialOutFF <= serialDataOut;
 	end
-	if (##WRITE FSM##) begin //This is the buffer for Serial write out
-	    miso_pin <= SerialOutFF;
-	end
+	bufif0(miso_pin,SerialOutFF,misoBuf)
     end
 
 
