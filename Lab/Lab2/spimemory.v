@@ -11,7 +11,7 @@ module spiMemory
     input           mosi_pin,   // SPI master out slave in
     input           fault_pin,  // For fault injection testing
     output [3:0]    leds        // LEDs for debugging
-)
+);
 
 wire[7:0] parallelDataOut, parallelDataIn;
 wire conditioned3, rising3, falling3;
@@ -59,13 +59,13 @@ datamemory dtmm(.clk(clk),
 			.writeEnable(dm_WE),
 			.dataOut(parallelDataIn));
 
-finitestatemachine fsm(.MISO_buf(misoBuf),
+fintestatemachine fsm(.MISO_buf(misoBuf),
 			.dataMem_WE(dm_WE),
 			.addr_WE(addr_WE),
 			.shiftReg_WE(sr_WE),
 			.clkEdge(rising1),
 			.chipSel(conditioned2),
-			.shiftRegOut0(serialDataOut[0]));
+			.shiftRegOut0(serialDataOut));
 
 
 always @(posedge clk) begin
@@ -75,12 +75,7 @@ always @(posedge clk) begin
 	if (falling1) begin //This is the DFF for the Serial Out
 	    SerialOutFF <= serialDataOut;
 	end
-	bufif0(miso_pin,SerialOutFF,misoBuf)
-    end
-
-
-
-
-
+end
+bufif0(miso_pin,SerialOutFF,misoBuf);
 endmodule
    
