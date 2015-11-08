@@ -26,6 +26,7 @@ module testspimemory();
     always begin
 	#10 clk=!clk;    // 50MHz Clock
 	#20 sclk_pin=!sclk_pin; //25MHz Clock
+    end
     
     initial begin
 	// TEST CASE 1: Write enable
@@ -34,6 +35,7 @@ module testspimemory();
 	    #100
 	end
 	#200
+	$display("MOSI: %b", mosi_pin)
 	// TEST CASE 2: Read enable
 	for(i=0;i<15;i=i+1) begin
 	    miso_pin=0
@@ -41,6 +43,7 @@ module testspimemory();
 	end
 	miso_pin=1
 	#100
+	$display("MOSI: %b", mosi_pin)
 	$stop;
     end
 
