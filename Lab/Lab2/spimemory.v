@@ -7,7 +7,7 @@ module spiMemory
     input           clk,        // FPGA clock
     input           sclk_pin,   // SPI clock
     input           cs_pin,     // SPI chip select
-    output          miso_pin,   // SPI master in slave out
+    output reg      miso_pin,   // SPI master in slave out
     input           mosi_pin,   // SPI master out slave in
     input           fault_pin,  // For fault injection testing
     output [3:0]    leds        // LEDs for debugging
@@ -22,7 +22,7 @@ wire serialDatOut;
 
 wire dm_WE, addr_WE, sr_WE;
 
-reg[7:0] AddrLat;
+reg[6:0] AddrLat;
 
 reg SerialOutFF;
 
@@ -63,19 +63,23 @@ finitestatemachine fsm(.MISO_buf(misoBuf),
 			.dataMem_WE(dm_WE),
 			.addr_WE(addr_WE),
 			.shiftReg_WE(sr_WE),
-			.clkEdge(rising1),
+			.clk(clk),
+			.sclkEdge(rising1),
 			.chipSel(conditioned2),
-			.shiftRegOut0(serialDataOut));
+			.shiftRegOut0(parallelDataOut[0]));
 
 
 always @(posedge clk) begin
+        r <= rising1;
         if(addr_WE) begin // This is the Address latch
-            AddrLat <= parallelDataOut;
+            AddrLat <= parallelDataOut[7:1];
 	end
 	if (falling1) begin //This is the DFF for the Serial Out
 	    SerialOutFF <= serialDataOut;
 	end
+	if (misoBuf) begin
+	    miso_pin <= SerialOutFF;
+	end
 end
-bufif0(miso_pin,SerialOutFF,misoBuf);
 endmodule
    

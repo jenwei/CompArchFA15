@@ -73,6 +73,44 @@ module testshiftregister();
 	#100;
 	parallelDataIn = 8'd2;
 	#100;
+
+	// TEST CASE 3: serial input (parallelLoad = 0)
+	parallelLoad = 0;
+	#100;
+	peripheralClkEdge = 1;
+	#10;
+	serialDataIn = 1;
+	#10;
+	peripheralClkEdge = 0;
+	#20;
+	peripheralClkEdge = 1;
+	#20;
+	peripheralClkEdge = 0;
+	#20;
+	peripheralClkEdge = 1;
+	#20;
+	peripheralClkEdge = 0;
+	#20;
+	peripheralClkEdge = 1;
+	#20;
+	peripheralClkEdge = 0;
+	#20;
+	peripheralClkEdge = 1;
+	#20;
+	peripheralClkEdge = 0;
+	#20;
+	peripheralClkEdge = 1;
+	#20;
+	peripheralClkEdge = 0;
+	#20;
+	peripheralClkEdge = 1;
+	#20;
+	peripheralClkEdge = 0;
+	#20;
+	peripheralClkEdge = 1;
+	#20;
+
+	#100
 	$stop;
 
     end
