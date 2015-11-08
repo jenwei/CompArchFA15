@@ -44,6 +44,7 @@ integer i;
 	    mosi_pin = 0;
 	    #280;
 	end
+
 	for(i=0;i<7;i=i+1) begin
 	    cs_pin = 0;
 	    mosi_pin = !mosi_pin;
