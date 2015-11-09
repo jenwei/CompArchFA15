@@ -1,4 +1,6 @@
 // Midpoint Check In
+// mux2     >> Two-input MUX
+// midpoint >> Uses 3 input conditioners to smooth out button and switches, then connects outputs to a shift register.
 // -----------------
 
 module mux2 #( parameter W = 1 )
@@ -14,8 +16,8 @@ endmodule
 module midpoint
 (
 input 	     clk,
-input  [3:0] sw,
-input  [3:0] btn,
+input  [3:0] sw, //Switches as input "noisy signal" to input conditioners
+input  [3:0] btn,//Button as input "noisy signal" to input conditioners
 output[3:0] led
 );
 
@@ -26,6 +28,8 @@ wire conditioned1, rising1, falling1;
 wire conditioned0, rising0, falling0;
 wire serialDatOut;
 
+//Condition signals from button[0], switch[0:3]
+//Wire out conditioned signal, posedge, negedge
 inputconditioner ipc0(.clk(clk),
     			 .noisysignal(btn[0]),
 			 .conditioned(conditioned0),
@@ -50,6 +54,7 @@ inputconditioner ipc3(.clk(clk),
 			 .positiveedge(rising3),
 			 .negativeedge(falling3));
 
+//connect appropriate rising/falling edges, and conditioned  signal from switch[0]
 shiftregister #(8) shr(.clk(clk), 
     		           .peripheralClkEdge(rising2),
     		           .parallelLoad(falling0), 
@@ -57,7 +62,7 @@ shiftregister #(8) shr(.clk(clk),
     		           .serialDataIn(conditioned1), 
     		           .parallelDataOut(parallelDataOut), 
     		           .serialDataOut(serialDataOut));
-
+//Use mux to select a subset of bits to display
 mux2 #(4) output_select(.in0(parallelDataOut[3:0]), .in1(parallelDataOut[7:4]), .sel(conditioned3), .out(led));
 
 endmodule

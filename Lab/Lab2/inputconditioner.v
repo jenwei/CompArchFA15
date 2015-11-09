@@ -84,7 +84,7 @@ input	    fault_pin	    // Fault pin used to break the SPI code
         synchronizer0 <= noisysignal; // set synchronizer0 to the noisysignal
         synchronizer1 <= synchronizer0; // set synchronizer to synchronizer0
 	end
-	// If positiveedge or negativeedge are high, reset to 0 (since we only want them to be around for one clock cycle)	
+	// If positiveedge or negativeedge are high, reset to 0 (since we only want them to be high for one clock cycle)	
 	if (positiveedge || negativeedge) begin
 		positiveedge <= 0;
 		negativeedge <= 0;

@@ -82,9 +82,9 @@ integer i;
 	cs_pin = 1;
 	fault_pin = 0;
 	#100
+	// TEST CASE 4: Read enable w/o FaultPin
         cs_pin = 0;
 	fault_pin = 0;
-	// TEST CASE 4: Read enable w/0 FaultPin
 	for(i=0;i<6;i=i+1) begin
 	    mosi_pin = 0;
 	    #240;
@@ -113,9 +113,9 @@ integer i;
 	cs_pin = 1;
 	fault_pin = 0;
 	#100
+	// TEST CASE 6: Read enable w/ FaultPin
         cs_pin = 0;
 	fault_pin = 1;
-	// TEST CASE 6: Read enable w/ FaultPin
 	for(i=0;i<6;i=i+1) begin
 	    mosi_pin = 0;
 	    #240;
@@ -124,7 +124,6 @@ integer i;
 	#2000;
 	cs_pin = 1;
 	#100;
-
 	// TEST CASE 7: Write enable w/o FaultPin
 	cs_pin = 1;
 	fault_pin = 0;
@@ -144,9 +143,9 @@ integer i;
 	cs_pin = 1;
 	fault_pin = 0;
 	#100
+	// TEST CASE 8: Read enable w/o FaultPin
         cs_pin = 0;
 	fault_pin = 0;
-	// TEST CASE 8: Read enable w/o FaultPin
 	for(i=0;i<6;i=i+1) begin
 	    mosi_pin = 0;
 	    #240;

@@ -7,12 +7,12 @@
 
 module datamemory
 #(
-    parameter addresswidth  = 7,
+    parameter addresswidth  = 7, //sizing with parameters. Space and data are money.
     parameter depth         = 2**addresswidth,
     parameter width         = 8
 )
 (
-    input 		                clk,
+    input 		        clk, //the comment at the top explains everything.
     output reg [width-1:0]      dataOut,
     input [addresswidth-1:0]    address,
     input                       writeEnable,

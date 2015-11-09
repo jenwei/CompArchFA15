@@ -1,5 +1,6 @@
 //------------------------------------------------------------------------
 // SPI Memory
+// 
 //------------------------------------------------------------------------
 
 module spiMemory
@@ -14,19 +15,19 @@ module spiMemory
 );
 
 wire[7:0] parallelDataOut, parallelDataIn;
-wire conditioned3, rising3, falling3;
+// Conditioned inputs
 wire conditioned2, rising2, falling2;
 wire conditioned1, rising1, falling1;
 wire conditioned0, rising0, falling0;
-wire serialDatOut;
+wire serialDataOut;
 
-wire dm_WE, addr_WE, sr_WE;
+wire dm_WE, addr_WE, sr_WE; //write enables from FSM
 
 reg[6:0] AddrLat;
 
 reg SerialOutFF;
 
-
+// Device instantiations
 inputconditioner ipc0(.clk(clk),
     			 .noisysignal(mosi_pin),
 			 .conditioned(conditioned0),
@@ -77,6 +78,7 @@ always @(posedge clk) begin
 	if (falling1) begin //This is the DFF for the Serial Out
 	    SerialOutFF <= serialDataOut;
 	end
+    // This is the buffer between the D flip-flop and the output.
 	if (misoBuf) begin
 	    miso_pin <= SerialOutFF;
 	end
