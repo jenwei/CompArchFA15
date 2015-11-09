@@ -6,7 +6,7 @@ sim:/testspimemory/clk \
 sim:/testspimemory/sclk_pin \
 sim:/testspimemory/cs_pin \
 sim:/testspimemory/miso_pin \
-sim:/testspimemory/res \
+sim:/testspimemory/fault_pin \
 sim:/testspimemory/mosi_pin
 
 run -all

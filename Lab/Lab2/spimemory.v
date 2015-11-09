@@ -80,6 +80,9 @@ always @(posedge clk) begin
 	if (misoBuf) begin
 	    miso_pin <= SerialOutFF;
 	end
+	else if (!conditioned1)begin
+		miso_pin <=1'bx;
+	end
 end
 endmodule
    

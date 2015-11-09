@@ -65,8 +65,12 @@ input	    fault_pin	    // Fault pin used to break the SPI code
     reg synchronizer1 = 0;
 
     always @(posedge clk ) begin
+	if (fault_pin) begin
+		synchronizer1  <= 0;
+	end
+	else begin
         if(conditioned == synchronizer1)
-            counter <= 0;
+             counter <= 0;
         else begin
             if( counter == waittime) begin
                 counter <= 0;
@@ -79,15 +83,11 @@ input	    fault_pin	    // Fault pin used to break the SPI code
         end
         synchronizer0 <= noisysignal; // set synchronizer0 to the noisysignal
         synchronizer1 <= synchronizer0; // set synchronizer to synchronizer0
-	
+	end
 	// If positiveedge or negativeedge are high, reset to 0 (since we only want them to be around for one clock cycle)	
 	if (positiveedge || negativeedge) begin
 		positiveedge <= 0;
 		negativeedge <= 0;
-	end
-	if (fault_pin) begin
-		counter <= 0;
-	end
-	
+	end	
     end
 endmodule
