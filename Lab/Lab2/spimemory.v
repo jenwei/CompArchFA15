@@ -33,11 +33,12 @@ inputconditioner ipc0(.clk(clk),
 			 .positiveedge(rising0),
 			 .negativeedge(falling0));
 
-inputconditioner ipc1(.clk(clk),
+inputconditioner_breaking ipc1(.clk(clk),
     			 .noisysignal(sclk_pin),
 			 .conditioned(conditioned1),
 			 .positiveedge(rising1),
-			 .negativeedge(falling1));
+			 .negativeedge(falling1),
+			 .fault_pin(fault_pin));
 
 inputconditioner ipc2(.clk(clk),
     			 .noisysignal(cs_pin),
@@ -70,7 +71,6 @@ finitestatemachine fsm(.MISO_buf(misoBuf),
 
 
 always @(posedge clk) begin
-        r <= rising1;
         if(addr_WE) begin // This is the Address latch
             AddrLat <= parallelDataOut[7:1];
 	end
