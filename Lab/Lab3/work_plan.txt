@@ -1,0 +1,13 @@
+CompArch Lab 3: CPU
+Jacob Riedel, Jennifer Vaccaro, Jennifer Wei
+
+Work Plan
+Task          		| Time Estimate (Hrs) / Planned Completion Date 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Documentation
+-Work Plan Reflection	0.25
+-Editing Report			1.00 		
+
+TOTAL
+	
