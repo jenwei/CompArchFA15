@@ -10,4 +10,13 @@ In addition to your actual test assembly code, write a short README with:
 
 Submit the test program and README by submitting a pull request to the [main course repository](https://github.com/benthill/CompArchFA15). Code should be in `Lab/Lab3/asmtest/<your-team-name>/` (you may use subfolders if you submit multiple tests).
 
+-------------------------------------------------------------------------------------------------------------------------------------------
+Our Assembly test takes an input and searches for any possible multiples and factors.
 
+Input on $a0 as any number.
+
+If no factors are found, then the number is prime and a flag is set to show this
+
+Output on $v0 as a flag to show prime or not prime
+
+Warning: With larger numbers, the code will begin to take extreme amounts of time to finish. For your own sake, keep the numbers under 7 digits. 
