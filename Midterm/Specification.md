@@ -14,4 +14,5 @@ Looking at a generic bike light, the blinking rate was approximately 35 blinks/1
 Since `dim` is supposed to be `on` at approximately 50% brightness, the frequency of that should be approximately half the frequency of the `on` state or 16,384 Hz.
 
 <h3>Finite State Machine</h3>
-// insert FSM diagram here + notes
+![FSM of Bike Light](https://github.com/jenwei/CompArchFA15/blob/master/Midterm/img/light_fsm_v2.png)
+As shown in the FSM diagram, the four modes are represented and transition from one mode to the next when the button is pressed, otherwise, the mode stays the same.
