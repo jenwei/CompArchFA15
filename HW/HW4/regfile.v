@@ -32,7 +32,7 @@ wire [31:0] RegOut0,RegOut1,RegOut2,RegOut3,RegOut4,RegOut5,RegOut6,RegOut7,RegO
 decoder1to32 decode(DecodeOut,RegWrite,WriteRegister);
 
 // register setup
-register32zero register0(RegOut0,WriteData,DecodeOut[0],clk);
+register32zero register0(RegOut0,WriteData,DecodeOut[0],Clk);
 register32 reg1(RegOut1,WriteData,DecodeOut[1],Clk);
 register32 reg2(RegOut2,WriteData,DecodeOut[2],Clk);
 register32 reg3(RegOut3,WriteData,DecodeOut[3],Clk);
