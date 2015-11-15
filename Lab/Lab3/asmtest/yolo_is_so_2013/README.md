@@ -7,3 +7,4 @@ Output on `$v0` as a flag to show prime or not prime.
 If no factors are found, then the number is prime and `$v0` is set to `0xb`. Otherwise, if the number is not prime, then `$v0` is set to `0xa`.
 
 Warning: With larger numbers, the code will begin to take extreme amounts of time to finish. For your own sake, keep the numbers under 7 digits. 
+
