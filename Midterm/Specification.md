@@ -5,14 +5,15 @@ The bike light has one input and one output. The input of this design is a butto
 The output of this system is in the form of light from a single LED which has two states - on and off.
 
 <h3>System Operational Modes</h3>
-This system has four modes: `off`, `on`, `blinking`, `dim`. `off` is where the LED is unpowered, `on` is where the LED is powered, `blinking` is where the LED toggles between `on` and `off` at a certain frequency, and `dim` is where the LED toggles between `on` and `off` quickly.
+This system has four modes: `off`, `on`, `blinking`, `dim`. `off` is where the LED is unpowered, `on` is where the LED is powered, `blinking` is where the LED toggles between `on` and `off`, and `dim` is where the LED is `on` at approximately 50% brightness.
 
-The `on` state has a frequency of 32,768 Hz.
+Below is a graphical illustration of the four states from the perspective of the human eye.
+![Graphical Representation of States](https://github.com/jenwei/CompArchFA15/blob/master/Midterm/img/graphical.png)
 
 Looking at a generic bike light, the blinking rate was approximately 35 blinks/10 seconds or 3.5 Hz which is the frequency this bike controller clone will be using.
 
-Since `dim` is supposed to be `on` at approximately 50% brightness, the frequency of that should be approximately half the frequency of the `on` state or 16,384 Hz.
+As mentioned in the midterm handout, digital circuits like this one often implement analog behaviors such as dimming using Pulse Width Modulation, where the LED is turned off and on rapidly, faster than the eye can see. Thus, the perceived brightness depends on the total amount of time the LED spends on - the "duty cycle". Since `dim` is supposed to be `on` at approximately 50% brightness, the frequency of that should be the same as that of the `on` state but with a 50% duty cycle. 
 
 <h3>Finite State Machine</h3>
-<p>As shown in the FSM diagram, the four modes are represented and transition from one mode to the next when the button is pressed, otherwise, the mode stays the same.</p>
+<p>The FSM diagram below depicts the four states of the bike light. The state moves onto the next state when the button is pressed. Otherwise, the state stays the same.</p>
 ![FSM of Bike Light](https://github.com/jenwei/CompArchFA15/blob/master/Midterm/img/light_fsm_v2.png)
