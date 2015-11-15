@@ -12,7 +12,7 @@ Below is a graphical illustration of the four states from the perspective of the
 
 Looking at a generic bike light, the blinking rate was approximately 35 blinks/10 seconds or 3.5 Hz which is the frequency this bike controller clone will be using.
 
-As mentioned in the midterm handout, digital circuits like this one often implement analog behaviors such as dimming using Pulse Width Modulation, where the LED is turned off and on rapidly, faster than the eye can see. Thus, the perceived brightness depends on the total amount of time the LED spends on - the "duty cycle". Since `dim` is supposed to be `on` at approximately 50% brightness, the frequency of that should be the same as that of the `on` state but with a 50% duty cycle. 
+As mentioned in the midterm handout, digital circuits like this one often implement analog behaviors such as dimming using Pulse Width Modulation, where the LED is turned off and on rapidly, faster than the eye can see. Thus, the perceived brightness depends on the total amount of time the LED spends on - the "duty cycle". Since `dim` is supposed to be `on` at approximately 50% brightness, the frequency of that should be the same as the `on` state but with a 50% duty cycle. 
 
 <h3>Finite State Machine</h3>
 <p>The FSM diagram below depicts the four states of the bike light. The state moves onto the next state when the button is pressed. Otherwise, the state stays the same.</p>
