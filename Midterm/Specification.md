@@ -10,9 +10,9 @@ This system has four modes: `off`, `on`, `blinking`, `dim`. `off` is where the L
 Below is a graphical illustration of the four states from the perspective of the human eye.
 ![Graphical Representation of States](https://github.com/jenwei/CompArchFA15/blob/master/Midterm/img/graphical.png)
 
-Looking at a generic bike light, the blinking rate was approximately 35 blinks/10 seconds or 3.5 Hz which is the frequency this bike controller clone will be using.
+Looking at a generic bike light, the blinking rate was approximately 35 blinks/10 seconds or 3.5 Hz, which rounds up to approx. 4.0 Hz (2^2 Hz), the frequency this bike controller clone will be using.
 
-As mentioned in the midterm handout, digital circuits like this one often implement analog behaviors such as dimming using Pulse Width Modulation, where the LED is turned off and on rapidly, faster than the eye can see. Thus, the perceived brightness depends on the total amount of time the LED spends on - the "duty cycle". Since `dim` is supposed to be `on` at approximately 50% brightness, the frequency of that should be the same as the `on` state but with a 50% duty cycle. 
+As mentioned in the midterm handout, digital circuits like this one often implement analog behaviors such as dimming using Pulse Width Modulation, where the LED is turned off and on rapidly, faster than the eye can see. Thus, the perceived brightness depends on the total amount of time the LED spends on - the "duty cycle". Since `dim` is supposed to be `on` at approximately 50% brightness. However, the midterm handout also mentions that the human vision flicker limitation is 128 Hz, meaning that despite the lower frequency, the human eye will not notice the flickering, and will perceive it as a dimness in the LED instead.
 
 <h3>Finite State Machine</h3>
 <p>The FSM diagram below depicts the four states of the bike light. The state moves onto the next state when the button is pressed. Otherwise, the state stays the same.</p>
