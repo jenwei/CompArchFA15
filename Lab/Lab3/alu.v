@@ -183,7 +183,7 @@ wire co0, co1, co2, co3, co4, co5, co6, co7;
 wire zeroadd, zeroslt, zerosub;
 
 //Runs each module and holds the values in independent wires
-add added(co0, of0, result0, operandA, operandB, 0); 
+add added(co0, of0, result0, operandA, operandB, 1'b0); 
 nor zero0(zeroadd, result0, of0);
 sub subbed(co1, of1, result1, operandA, operandB);
 nor zero1(zerosub, result1, of1);
