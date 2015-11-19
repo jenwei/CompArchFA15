@@ -20,6 +20,5 @@ module datamem
             memory[address] <= dataIn;
 	end
         dataOut <= memory[address];
-	$display("Mem: %d",memory[address]);
     end
 endmodule
