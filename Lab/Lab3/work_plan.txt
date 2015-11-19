@@ -33,6 +33,6 @@ REPORT / 4.5 / Friday, November 20, EOD
 
 
 ** NOTES **
-From past majors, we've learned that coding is time intensive, especially with debugging. This lab is supposedly recycling modules from previous labs, so we anticipate that these will take time, but the hours dedicated don't seem as extreme since we're not working from scratch.
+From past labs, we've learned that coding is time intensive, especially with debugging. This lab is supposedly recycling old modules, so we anticipate that these will take time, but the hours dedicated don't seem as extreme since we're not working from scratch.
 
 We would ideally like to be done with this before break, but members of our team have interviews over the next couple of weeks, so an extension might be helpful, though it's hard to say this early on.
