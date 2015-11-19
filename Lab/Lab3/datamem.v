@@ -1,7 +1,7 @@
 module datamem
 #(
     parameter addresswidth  = 32, //sizing with parameters. Space and data are money.
-    parameter depth         = 2**addresswidth,
+    parameter depth         = 2**(16),
     parameter width         = 32
 )
 (
