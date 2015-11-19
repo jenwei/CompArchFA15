@@ -3,7 +3,7 @@
 // or broken register files, and verifying that it correctly identifies each
 //------------------------------------------------------------------------------
 
-module testREGFILE();
+module testREGFILE;
 
   wire[31:0]	ReadData1;	// Data from first register read
   wire[31:0]	ReadData2;	// Data from second register read
@@ -120,10 +120,10 @@ output reg		Clk
   // Verify expectations and report test result
   if((ReadData1 != 42) || (ReadData2 != 42)) begin
     dutpassed = 0;	// Set to 'false' on failure
-    $display("Test Case 1 Failed");
+    $display("ReadData -- BROKEN -- Test Case 1 Failed");
   end
   else begin
-    $display("Test Case 1 Passed");
+    $display("ReadData -- WORKS -- Test Case 1 Passed");
   end
 
   // Test Case 2: 
@@ -138,10 +138,10 @@ output reg		Clk
 
   if((ReadData1 != 15) || (ReadData2 != 15)) begin
     dutpassed = 0;
-    $display("Test Case 2 Failed");
+    $display("ReadData -- BROKEN -- Test Case 2 Failed");
   end
   else begin
-    $display("Test Case 2 Passed");
+    $display("ReadData -- WORKS -- Test Case 2 Passed");
   end
 
 // Test Case 3:
