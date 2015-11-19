@@ -5,7 +5,7 @@ module datamem
     parameter width         = 32
 )
 (
-    input 		        		clk, //the comment at the top explains everything.
+    input 		        clk, //the comment at the top explains everything.
     output reg [width-1:0]      dataOut,
     input [addresswidth-1:0]    address,
     input                       writeEnable,

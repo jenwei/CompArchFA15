@@ -1,6 +1,14 @@
 module cpu
 (
-input[31:0] instruction
 );
-// puts everything together =)
+// puts everything together 
+// pulls instruction from register
+// decodes instruction
+// does things
+ifu ifyou();
+instrdecode ideeco();
+fsm();
+
+
+
 endmodule
