@@ -1,6 +1,6 @@
 module signextend
 (
-output[32:0]	imm32,
+output[31:0]	imm32,
 input[15:0]	imm16
 );
 // Extends the sign of the immediate
