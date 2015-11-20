@@ -11,7 +11,7 @@ input		jump
 // controls/updates program counter
 
 reg[29:0] 	pc;
-reg[32:0]	SignE;
+wire[31:0]	SignE;
 
 signextend SEI(.imm16(imm16),.imm32(SignE));
 
