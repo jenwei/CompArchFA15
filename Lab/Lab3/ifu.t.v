@@ -1,11 +1,11 @@
 module testIFU;
-wire[31:0] instr,
-reg[25:0] targetInstr,
-reg[15:0] imm16,
-reg clk,
-reg zero,
-reg branch,
-reg jump
+wire[31:0] instr;
+reg[25:0] targetInstr;
+reg[15:0] imm16;
+reg clk;
+reg zero;
+reg branch;
+reg jump;
 reg dutpassed;
 
 ifu DUT
@@ -21,8 +21,6 @@ ifu DUT
 
 	
 initial begin
-
-
 dutpassed = 1;
 clk = 0;
 
@@ -41,7 +39,9 @@ if(instr != 32'd4) begin
 	$display("BROKEN - PC+4 failed");
 	dutpassed = 0;
 end
-else $display("WORKS - PC+4 worked");
+else begin 
+	$display("WORKS - PC+4 worked");
+end
 
 // test branch
 branch = 1;
@@ -55,12 +55,14 @@ if(instr != 32'd60) begin
 	$display("BROKEN - branch failed");
 	dutpassed = 0;
 end
-else $display("WORKS - branch worked");
+else begin
+	$display("WORKS - branch worked");
+end
 
 // test jump
 branch = 0;
 jump = 1;
-targetAddr = 26'd150;
+targetInstr = 26'd150;
 #10 
 clk = 1; 
 #20 
@@ -69,7 +71,9 @@ if(instr != 26'd150) begin
 	$display("BROKEN - jump failed");
 	dutpassed = 0;
 end
-else $display("WORKS - jump worked");
+else begin
+	$display("WORKS - jump worked");
+end
 
 $display("DUT Passed? %b", dutpassed);
 
