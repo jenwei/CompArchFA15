@@ -30,9 +30,9 @@ zero = 0;
 jump = 0;
 imm16 = 16'b0;
 targetInstr = 26'b0;
-#20 
+#10
 clk = 1;
-#20
+#10
 clk = 0;
 
 if(instr != 32'd4) begin
@@ -47,9 +47,9 @@ end
 branch = 1;
 imm16 = 16'd56;
 zero = 1;
-#10 
+#10
 clk = 1; 
-#20 
+#10 
 clk = 0;
 if(instr != 32'd60) begin
 	$display("BROKEN - branch failed");
@@ -62,13 +62,14 @@ end
 // test jump
 branch = 0;
 jump = 1;
-targetInstr = 26'd150;
-#10 
+targetInstr = 26'd35;
+#200
 clk = 1; 
-#20 
+#200
 clk = 0;
+#200
 if(instr != 26'd150) begin
-	$display("BROKEN - jump failed");
+	$display("%b",instr);
 	dutpassed = 0;
 end
 else begin

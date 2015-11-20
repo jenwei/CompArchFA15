@@ -19,9 +19,9 @@ always @(posedge clk) begin
 	if (jump) begin //Take Jump route if True
 		pc <= {pc[29:26], targetInstr};
 	end
-	else begin //Else look to Branch or increment by 4
+	else begin //Else look to Branch or increment by 1
 		if (branch && zero) begin //Take Branch route if branch and zero flag are True
-			pc <= pc + SignE[29:0] + 4;
+			pc <= pc + SignE[29:0] + 1;
 		end
 		else begin //Else increment by 4 pc
 			pc <= pc + 4;
