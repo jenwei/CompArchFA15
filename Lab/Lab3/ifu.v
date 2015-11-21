@@ -5,7 +5,7 @@ input		branch,
 input		jump,
 input[25:0]	targetInstr, //target address
 input[15:0]	imm16,
-output reg[31:0] instr //address
+output[31:0] instr //address
 );
 // controls/updates program counter
 
@@ -21,15 +21,16 @@ always @(posedge clk) begin
 	if (jump) begin //Take Jump route if True
 		pc <= {pc[29:26],targetInstr};
 	end
-	else begin //Else look to Branch or increment by 4
+	else begin //ELSE look to Branch or increment by 1
 		if (branch && zero) begin //Take Branch route if branch and zero flag are True
 			// pc <= pc + SignE[29:0] + 1;
-			pc <= pc + 4 + {imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16}; 
+			pc <= pc + 1 + {imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16[15], imm16}; 
 		end
-		else begin //Else increment pc by 4
-			pc <= pc + 4;
+		else begin //Else increment pc by 1;
+			pc <= pc + 1;
 		end
 	end
-	instr <= {pc, 2'b00}; // Assign the instruction to instr and concatenate the missing '00'
 end
+assign instr = {pc, 2'b00}; // Assign the instruction to instr and concatenate the missing '00' (essentially doing the +4 operation)
+
 endmodule

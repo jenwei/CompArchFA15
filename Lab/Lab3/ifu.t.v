@@ -23,7 +23,7 @@ dutpassed = 1;
 clk = 0;
 // instr = 32'b0;
 
-// test pc+4
+// TEST #1: PC+4
 branch = 0;	
 zero = 0;
 jump = 0;
@@ -34,15 +34,56 @@ clk = 1;
 #1000
 clk = 0;
 
+$display("TEST 1: EXPECTED OUTPUT - d4");
+
 if(instr != 32'd4) begin
-	$display("BROKEN - PC+4 failed - OUTPUT %b",instr);
+	$display("PC+4 failed - OUTPUT %b",instr);
 	dutpassed = 0;
 end
 else begin 
-	$display("WORKS - PC+4 worked - OUTPUT %b",instr);
+	$display("PC+4 worked - OUTPUT %b",instr);
 end
 
-// test branch
+// TEST #2: Branch from PC+4
+branch = 1;
+imm16 = 16'd3;
+zero = 1;
+#1000
+clk = 1; 
+#1000
+clk = 0;
+
+$display("TEST 2: INPUT - d3 EXPECTED OUTPUT - d20(d3*4+4 << 2)");
+
+if(instr != 32'd20) begin
+	$display("branch failed - OUTPUT %b",instr);
+	dutpassed = 0;
+end
+else begin
+	$display("branch worked - OUTPUT %b",instr);
+end
+
+// TEST #3: Jump from Branch
+branch = 0;
+jump = 1;
+targetInstr = 26'd8;
+#10000
+clk = 1; 
+#10000
+clk = 0;
+
+$display("TEST 3: INPUT - d8 EXPECTED OUTPUT - d32(d8 << 2)");
+if(instr != 26'd32) begin
+	$display("jump failed - OUTPUT %b",instr);
+	dutpassed = 0;
+end
+else begin
+	$display("jump worked - OUTPUT %b",instr);
+end
+
+
+// TEST #4: Branch from Jump
+jump = 0;
 branch = 1;
 imm16 = 16'd16;
 zero = 1;
@@ -50,32 +91,38 @@ zero = 1;
 clk = 1; 
 #1000
 clk = 0;
-if(instr != 32'd20) begin
-	$display("BROKEN - branch failed - OUTPUT %b",instr);
+$display("TEST 4: INPUT - d16 EXPECTED OUTPUT - d100(d8+1+d16 << 2)");
+if(instr != 32'd100) begin
+	$display("branch failed - OUTPUT %b",instr);
 	dutpassed = 0;
 end
 else begin
-	$display("WORKS - branch worked - OUTPUT %b",instr);
+	$display("branch worked - OUTPUT %b",instr);
 end
 
-// test jump
-branch = 0;
-jump = 1;
-targetInstr = 26'd400;
-#10000
-clk = 1; 
-#10000
+// TEST #5: PC + 4 from Branch
+branch = 0;	
+zero = 0;
+jump = 0;
+imm16 = 16'b0;
+targetInstr = 26'b0;
+#1000
+clk = 1;
+#1000
 clk = 0;
-if(instr != 26'd150) begin
-	$display("BROKEN - jump failed - OUTPUT %b",instr);
+
+$display("TEST 5: EXPECTED OUTPUT - d104");
+
+if(instr != 32'd104) begin
+	$display("BROKEN - PC+4 failed - OUTPUT %b",instr);
 	dutpassed = 0;
 end
-else begin
-	$display("WORKS - jump worked - OUTPUT %b",instr);
+else begin 
+	$display("WORKS - PC+4 worked - OUTPUT %b",instr);
 end
 
+// FINAL DISPLAY
 $display("DUT Passed? %b", dutpassed);
-
 end
 
 endmodule
