@@ -3,13 +3,13 @@ module lut
 input[5:0] 	opcode,
 input[5:0]	func,
 output reg 	RegDst, 	// 1 selects rt, 0 selects rd
-output reg[2:0] ALUcntrl,	// rUNS OFF alu COMMAND CODES (Explained inline)
+output reg[2:0] ALUcntrl,	// Runs off ALU command codes (Explained inline)
 output reg 	ALUsrc, 	// 1 loads from Db, 0 loads from Imm
 output reg 	MemtoReg, 	// 1 selects ALU Output, 0 selects Dout at addr of ALU out
-output reg	MemWr, 
-output reg 	RegWr, 		// 1 enable writng, 0 blocks
-output reg	jmp,
-output reg	brch
+output reg	MemWr,		// 1 enables writing, 0 blocks
+output reg 	RegWr, 		// 1 enables writing, 0 blocks
+output reg	jmp,		// 1 enables jump, 0 does not
+output reg	brch		// 1 enables branch, 0 does not
 );
 //Tracks state and controls enables
 always @(opcode or func)begin
@@ -137,7 +137,6 @@ always @(opcode or func)begin
 			jmp = 0; // Do not jump
 			brch =0; // Do not branch
 		end
-	
 end
 		
 
