@@ -36,7 +36,13 @@ reg clk;
 //start clock
 
 // Instruction Fetch: input Imm16, zero, branch, jump; get instruction
-ifu ifyou(instruction, targetInstr, imm16, clk, zero, branch, jump);
+ifu ifyou(.instr(instruction), 
+			.targetInstr(targetInstr), 
+			.imm16(imm16), 
+			.clk(clk), 
+			.zero(zero), 
+			.branch(branch), 
+			.jump(jump));
 
 // Instruction Decode: input instruction; get pieces
 instrdec indeck(.instr(instruction), 
