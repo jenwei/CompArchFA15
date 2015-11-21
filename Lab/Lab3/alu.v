@@ -185,14 +185,21 @@ wire zeroadd, zeroslt, zerosub;
 //Runs each module and holds the values in independent wires
 add added(co0, of0, result0, operandA, operandB, 1'b0); 
 nor zero0(zeroadd, result0, of0);
+
 sub subbed(co1, of1, result1, operandA, operandB);
 nor zero1(zerosub, result1, of1);
+
 xore xored(co2, of2, result2, operandA, operandB);
+
 slt slted(co3, of3, result3, operandA, operandB);
 nor zero3(zeroslt, result3, of3);
+
 ande anded(co4, of4, result4, operandA, operandB);
+
 nande nanded(co5, of5, result5, operandA, operandB);
+
 nore nored(co6, of6, result6, operandA, operandB);
+
 ore ored(co7, of7, result7, operandA, operandB);
 
 //MUX passes the desired result to the output with the command selector.\
