@@ -15,26 +15,37 @@ output reg	brch		// 1 enables branch, 0 does not
 always @(opcode or func)  begin
 	case (opcode)
 		6'b000000: begin //R-Type, use Func to determine command
-			RegDst <= 0;
-			RegWr <= 1;
-			ALUsrc <= 1;
-			MemtoReg <= 1;
-			MemWr <= 0;
-			jmp <= 0;
-			brch <= 0;
 			if (func == 6'b100000) begin //Add
+				RegDst <= 0;
+				RegWr <= 1;
+				ALUsrc <= 1;
 				ALUcntrl <= 3'b000; // ADD code
-				$display("ADD");
+				MemtoReg <= 1;
+				MemWr <= 0;
+				jmp <= 0;
+				brch <= 0;
 			end
-			if (func == 6'b100010) begin //Subtract
+			else if (func == 6'b100010) begin //Subtract
+				RegDst <= 0;
+				RegWr <= 1;
+				ALUsrc <= 1;
 				ALUcntrl <= 3'b001; // Subtract Code
-				$display("SUB");
+				MemtoReg <= 1;
+				MemWr <= 0;
+				jmp <= 0;
+				brch <= 0;
 			end
-			if (func == 6'b101010)begin //Set Less Than
+			else if (func == 6'b101010)begin //Set Less Than
+				RegDst <= 0;
+				RegWr <= 1;
+				ALUsrc <= 1;
 				ALUcntrl <= 3'b011; // SLT code
-				$display("SLT");
+				MemtoReg <= 1;
+				MemWr <= 0;
+				jmp <= 0;
+				brch <= 0;
 			end
-			if (func!= 6'b100000 && func !=6'b100010 && func != 6'b101010) begin // Handles exceptions
+			else begin // Handles exceptions
 				RegDst <= 0;
 				RegWr <= 0; // Do not allow write to Reg
 				ALUsrc <= 0;
@@ -57,7 +68,7 @@ always @(opcode or func)  begin
 		end
 		6'b000011: begin //Jump and Link
 			RegDst <= 0;
-			RegWr <= 1;
+			RegWr <= 0;
 			ALUsrc <= 0;
 			ALUcntrl <= 3'b000;
 			MemtoReg <= 0;
@@ -82,7 +93,7 @@ always @(opcode or func)  begin
 			ALUcntrl <= 3'b000;
 			MemtoReg <= 0;
 			MemWr <= 0;
-			jmp <= 1; // Allow jump
+			jmp <= 1; // Aloow jump
 			brch <= 0;
 		end
 		6'b001110: begin // Exclusive Or Immediate
