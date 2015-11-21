@@ -14,8 +14,8 @@ output reg	brch		// 1 enables branch, 0 does not
 //Tracks state and controls enables
 always @(opcode or func)  begin
 	case (opcode)
-		6'd0://begin //R-Type, use Func to determine command
-			if (func == 6'd32) begin //Add
+		6'b000000: begin //R-Type, use Func to determine command
+			if (func == 6'b100000) begin //Add
 				RegDst <= 0;
 				RegWr <= 1;
 				ALUsrc <= 1;
@@ -25,7 +25,7 @@ always @(opcode or func)  begin
 				jmp <= 0;
 				brch <= 0;
 			end
-			else if (func == 6'd34) begin //Subtract
+			else if (func == 6'b100010) begin //Subtract
 				RegDst <= 0;
 				RegWr <= 1;
 				ALUsrc <= 1;
@@ -35,7 +35,7 @@ always @(opcode or func)  begin
 				jmp <= 0;
 				brch <= 0;
 			end
-			else if (func == 6'd42)begin //Set Less Than
+			else if (func == 6'b101010)begin //Set Less Than
 				RegDst <= 0;
 				RegWr <= 1;
 				ALUsrc <= 1;
@@ -55,8 +55,8 @@ always @(opcode or func)  begin
 				jmp <= 0; // Do not jump
 				brch <= 0; // Do not branch
 			end
-		//end
-		6'd2: begin // Jump
+		end
+		6'b000010: begin // Jump
 			RegDst <= 0;
 			RegWr <= 0;
 			ALUsrc <= 0;
@@ -66,7 +66,7 @@ always @(opcode or func)  begin
 			jmp <= 1; // Allow jump
 			brch <= 0;
 		end
-		6'd3: begin //Jump and Link
+		6'b000011: begin //Jump and Link
 			RegDst <= 0;
 			RegWr <= 0;
 			ALUsrc <= 0;
@@ -76,7 +76,7 @@ always @(opcode or func)  begin
 			jmp <= 1; // Allow jump
 			brch <= 0;
 		end
-		6'd5: begin // Branch on Not Equal
+		6'b000101: begin // Branch on Not Equal
 			RegDst <= 0;
 			RegWr <= 0;
 			ALUsrc <= 0;
@@ -86,7 +86,7 @@ always @(opcode or func)  begin
 			jmp <= 0;
 			brch <= 1; // Allow branch
 		end
-		6'd6: begin // Jump Register
+		6'b000110: begin // Jump Register
 			RegDst <= 0;
 			RegWr <= 0;
 			ALUsrc <= 0;
@@ -96,7 +96,7 @@ always @(opcode or func)  begin
 			jmp <= 1; // Aloow jump
 			brch <= 0;
 		end
-		6'd14: begin // Exclusive Or Immediate
+		6'b001110: begin // Exclusive Or Immediate
 			RegDst <= 1;
 			RegWr <= 1;
 			ALUsrc <= 0;
@@ -106,7 +106,7 @@ always @(opcode or func)  begin
 			jmp <= 0;
 			brch <= 0;
 		end
-		6'd35: begin // Load
+		6'b100011: begin // Load
 			RegDst <= 1;
 			RegWr <= 0;
 			ALUsrc <= 0;
@@ -116,7 +116,7 @@ always @(opcode or func)  begin
 			jmp <= 0;
 			brch <= 0;
 		end
-		6'd43: begin // Store
+		6'b101011: begin // Store
 			RegDst <= 0;
 			RegWr <= 0;
 			ALUsrc <= 0;
@@ -134,7 +134,7 @@ always @(opcode or func)  begin
 			MemtoReg <= 0;
 			MemWr <= 0; // Do not allow write to dataMem
 			jmp <= 0; // Do not jump
-			brch <=0; // Do not branch
+			brch <= 0; // Do not branch
 		end
 	endcase
 end
