@@ -7,7 +7,7 @@ Task / Time Estimate (Hrs) / Planned Completion Date
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 Workplan / 1.0 / 11/11 by 5pm
 
-SINGLE-CYCLE CPU / 7.5 / Tuesday, November 17, NINJA HOURS with Sidd / ACTUAL: 1.5 + 1.5 + 2 + 5
+SINGLE-CYCLE CPU / 7.5 / Tuesday, November 17, NINJA HOURS with Sidd / ACTUAL: 1.5 + 1.5 + 2 + 5 + 2
 -Write/compile/reuse individual modules / 1.0
 --PC, InstructionMEM, Reg, ALU, DataMEM
 -Test modules (individually) / 1.5
