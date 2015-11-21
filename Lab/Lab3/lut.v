@@ -136,6 +136,7 @@ always @(opcode or func)begin
 			jmp = 0; // Do not jump
 			brch =0; // Do not branch
 		end
+	endcase
 end
 		
 
