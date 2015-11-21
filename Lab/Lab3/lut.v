@@ -12,9 +12,9 @@ output reg	jmp,		// 1 enables jump, 0 does not
 output reg	brch		// 1 enables branch, 0 does not
 );
 //Tracks state and controls enables
-always @(opcode or func)begin
+always @(opcode or func)  begin
 	case (opcode)
-		6'd0:begin //R-Type, use Func to determine command
+		6'd0://begin //R-Type, use Func to determine command
 			if (func == 6'd32) begin //Add
 				RegDst <= 0;
 				RegWr <= 1;
@@ -55,8 +55,8 @@ always @(opcode or func)begin
 				jmp <= 0; // Do not jump
 				brch <= 0; // Do not branch
 			end
-		end
-		6'd2:begin // Jump
+		//end
+		6'd2: begin // Jump
 			RegDst <= 0;
 			RegWr <= 0;
 			ALUsrc <= 0;
@@ -66,7 +66,7 @@ always @(opcode or func)begin
 			jmp <= 1; // Allow jump
 			brch <= 0;
 		end
-		6'd3:begin //Jump and Link
+		6'd3: begin //Jump and Link
 			RegDst <= 0;
 			RegWr <= 0;
 			ALUsrc <= 0;
@@ -76,7 +76,7 @@ always @(opcode or func)begin
 			jmp <= 1; // Allow jump
 			brch <= 0;
 		end
-		6'd5:begin // Branch on Not Equal
+		6'd5: begin // Branch on Not Equal
 			RegDst <= 0;
 			RegWr <= 0;
 			ALUsrc <= 0;
@@ -86,7 +86,7 @@ always @(opcode or func)begin
 			jmp <= 0;
 			brch <= 1; // Allow branch
 		end
-		6'd6:begin // Jump Register
+		6'd6: begin // Jump Register
 			RegDst <= 0;
 			RegWr <= 0;
 			ALUsrc <= 0;
@@ -96,7 +96,7 @@ always @(opcode or func)begin
 			jmp <= 1; // Aloow jump
 			brch <= 0;
 		end
-		6'd14:begin // Exclusive Or Immediate
+		6'd14: begin // Exclusive Or Immediate
 			RegDst <= 1;
 			RegWr <= 1;
 			ALUsrc <= 0;
@@ -106,7 +106,7 @@ always @(opcode or func)begin
 			jmp <= 0;
 			brch <= 0;
 		end
-		6'd35:begin // Load
+		6'd35: begin // Load
 			RegDst <= 1;
 			RegWr <= 0;
 			ALUsrc <= 0;
@@ -116,7 +116,7 @@ always @(opcode or func)begin
 			jmp <= 0;
 			brch <= 0;
 		end
-		6'd43:begin // Store
+		6'd43: begin // Store
 			RegDst <= 0;
 			RegWr <= 0;
 			ALUsrc <= 0;
@@ -126,16 +126,17 @@ always @(opcode or func)begin
 			jmp <= 0;
 			brch <= 0;
 		end
-		default:begin // Handles exceptions
-			RegDst = 0;
-			RegWr = 0; // Do not allow write to Reg
-			ALUsrc = 0;
-			ALUcntrl = 3'b000;
-			MemtoReg = 0;
-			MemWr = 0; // Do not allow write to dataMem
-			jmp = 0; // Do not jump
-			brch =0; // Do not branch
+		default: begin // Handles exceptions
+			RegDst <= 0;
+			RegWr <= 0; // Do not allow write to Reg
+			ALUsrc <= 0;
+			ALUcntrl <= 3'b000;
+			MemtoReg <= 0;
+			MemWr <= 0; // Do not allow write to dataMem
+			jmp <= 0; // Do not jump
+			brch <=0; // Do not branch
 		end
+	endcase
 end
 		
 
