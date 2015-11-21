@@ -1,8 +1,11 @@
 module mux
+#(
+    parameter width	= 32
+)
 (
-output[31:0] 		selected,
-input[31:0]		inputA,
-input[31:0]		inputB,
+output[width-1:0] 	selected,
+input[width-1:0]		inputA,
+input[width-1:0]		inputB,
 input			select
 );
 // General 32-bit 2-select MUX
