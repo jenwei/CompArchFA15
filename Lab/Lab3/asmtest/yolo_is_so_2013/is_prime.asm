@@ -10,7 +10,7 @@ addi $a0, $zero, 317
 addi $t0, $zero, 1
 
 # base cases - if N is 0 or 1 - branch to NOTPRIME
-beq $a0, 0 NOTPRIME
+beq $a0, $zero NOTPRIME
 beq $a0, 1 NOTPRIME 
 
 # increment possible factor and check if prime

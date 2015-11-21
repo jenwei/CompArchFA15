@@ -1,5 +1,6 @@
 module cpu
 (
+output reg yolo
 );
 // puts everything together 
 // pulls instruction from register
@@ -24,10 +25,10 @@ wire[5:0] opcode, Funct;
 wire[4:0] Rs,Rt,Rd,Shamt, WriteRegister;
 
 wire MemWr, 
-	RegWr;
+	RegWr, jmp, brch;
 
-wire[15:0] imm16;
-wire[25:0] targetInstr;
+reg[15:0] imm16;
+reg[25:0] targetInstr;
 reg clk;
 
 //upload data
@@ -59,7 +60,9 @@ lut lute(.ALUcntrl(aluCntrl),
 		.MemWr(MemWr), 
 		.MemtoReg(MemToReg), 
 		.opcode(opcode), 
-		.func(Funct));
+		.func(Funct),
+		.jmp(jmp),
+		.brch(brch));
 
 // Operand Fetch
 mux #(5) regdest(.selected(WriteRegister), 
@@ -102,22 +105,24 @@ alu ayylou(.carryout(carryout),
 
 memory memINI(.clk(clk),
 		.regWE(MemWr),
-		.Addr(result[9:0]),
+		.DataAddr(result[9:0]),
 		.DataIn(ReadData2),
-		.DataOut(dataOut));
+		.DataOut(DataOut));
 					
 mux mem2reg(.selected(WriteData), 
-		.inputA(dataOut), 
+		.inputA(DataOut), 
 		.inputB(result), 
 		.select(MemToReg));
-
-initial clk = 0;
-			
-always #1000 clk <= !clk;
-			
-// Next instruction
-
+reg i=0;
+initial begin
+clk = 0; #1000
+for (i=0;i<100;i=i+1) begin			
+clk <= !clk;
+#1000
 assign imm16 = {Rd, Shamt, Funct};
 assign targetInstr = {Rt, Rs, Rd, Shamt, Funct};
-
+assign yolo = 1;
+end		
+$stop;
+end
 endmodule
