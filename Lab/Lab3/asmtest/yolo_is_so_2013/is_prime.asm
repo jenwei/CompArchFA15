@@ -34,5 +34,6 @@ j END
 # return '0xb' N is prime
 PRIME:
 addi $v0, $zero, 0xb
+sw $v0, ($t2)
 
 END:

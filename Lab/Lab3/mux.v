@@ -1,6 +1,6 @@
 module mux
 (
-output[31:0] 	selected,
+output[31:0] 		selected,
 input[31:0]		inputA,
 input[31:0]		inputB,
 input			select
