@@ -29,9 +29,9 @@ zero = 0;
 jump = 0;
 imm16 = 16'b0;
 targetInstr = 26'b0;
-#1000
+#10
 clk = 1;
-#1000
+#10
 clk = 0;
 
 $display("TEST 1: EXPECTED OUTPUT - d4");
@@ -48,9 +48,9 @@ end
 branch = 1;
 imm16 = 16'd3;
 zero = 1;
-#1000
+#10
 clk = 1; 
-#1000
+#10
 clk = 0;
 
 $display("TEST 2: INPUT - d3 EXPECTED OUTPUT - d20(d3*4+4 << 2)");
@@ -67,9 +67,9 @@ end
 branch = 0;
 jump = 1;
 targetInstr = 26'd8;
-#10000
+#10
 clk = 1; 
-#10000
+#10
 clk = 0;
 
 $display("TEST 3: INPUT - d8 EXPECTED OUTPUT - d32(d8 << 2)");
@@ -87,9 +87,9 @@ jump = 0;
 branch = 1;
 imm16 = 16'd16;
 zero = 1;
-#1000
+#10
 clk = 1; 
-#1000
+#10
 clk = 0;
 $display("TEST 4: INPUT - d16 EXPECTED OUTPUT - d100(d8+1+d16 << 2)");
 if(instr != 32'd100) begin
@@ -106,9 +106,9 @@ zero = 0;
 jump = 0;
 imm16 = 16'b0;
 targetInstr = 26'b0;
-#1000
+#10
 clk = 1;
-#1000
+#10
 clk = 0;
 
 $display("TEST 5: EXPECTED OUTPUT - d104");

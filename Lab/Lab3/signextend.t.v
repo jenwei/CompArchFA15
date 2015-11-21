@@ -42,7 +42,6 @@ imm16 = 16'h9bc1;
 #20
 $display("%b %b", imm16, imm32); 
 
-
 $stop;
 end
 endmodule
