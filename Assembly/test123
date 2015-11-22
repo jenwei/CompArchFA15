@@ -1,0 +1,14 @@
+# Our First Assembly Program
+#   Compute the average of 4 inputs
+
+# Input operands
+addi $t0, $zero, 14
+addi $t1, $zero, 5
+
+# Compute average, store in $t5
+add	$t5, $t0, $t1	# $t5 = $t0 + $t1
+
+jump:
+j jump
+
+

@@ -9,7 +9,7 @@ module memory(
   always @(posedge clk)
     if (regWE)
       mem[DataAddr] <= DataIn;
-  initial $readmemh("fibotext.txt", mem);
+  initial $readmemh("singleLineTest.txt", mem);
   assign DataOut = mem[DataAddr];
   //assign InstrOut = mem[InstrAddr >> 2];
 endmodule
