@@ -1,38 +1,27 @@
-module cpu
-(
-output reg yolo
-);
 // puts everything together 
 // pulls instruction from register
 // decodes instruction
 // does things
+module cpu
+(
+input clk
+);
 
 //initial reg values to zero
 
-wire[31:0] ReadData1,
-		ReadData2,
-		operandB,
-		result,
-		instruction,
-		WriteData,
-		DataIn,
-		DataOut,
-		imm32;
+wire[31:0] ReadData1, ReadData2, operandB, result, instruction, WriteData, DataIn, DataOut, imm32;
 			
 wire[2:0] aluCntrl;
 
 wire[5:0] opcode, Funct;
-wire[4:0] Rs,Rt,Rd,Shamt, WriteRegister;
+wire[4:0] Rs, Rt, Rd, Shamt, WriteRegister;
 
-wire MemWr, 
-	RegWr, jmp, brch;
+wire MemWr, RegWr, jmp, brch;
 
-reg[15:0] imm16;
-reg[25:0] targetInstr;
-reg clk;
+wire[15:0] imm16;
+wire[25:0] targetInstr;
 
 //upload data
-//start clock
 
 // Instruction Fetch: input Imm16, zero, branch, jump; get instruction
 ifu ifyou(.instr(instruction), 
@@ -65,10 +54,10 @@ lut lute(.ALUcntrl(aluCntrl),
 		.brch(brch));
 
 // Operand Fetch
-mux #(5) regdest(.selected(WriteRegister), 
+mux5 regdest(.selected(WriteRegister), 
 			.inputA(Rd), 
 			.inputB(Rt), 
-			.select(RegDst)); 
+			.select(RegDst));
 			
 regfile reggie(.ReadData1(ReadData1),
 		.ReadData2(ReadData2),
@@ -83,7 +72,7 @@ regfile reggie(.ReadData1(ReadData1),
 signextend sextnd(.imm16(imm16), 
 			.imm32(imm32));
 
-mux aluchoice(.selected(operandB), 
+mux32 aluchoice(.selected(operandB), 
 		.inputA(imm32), 
 		.inputB(ReadData2), 
 		.select(aluSrc));
@@ -96,33 +85,18 @@ alu ayylou(.carryout(carryout),
 		.operandB(operandB),
 		.command(aluCntrl));
 
-// Store to Mem
-//datamem deezmeme(.clk(clk), 
-//					.dataOut(dataOut), 
-//					.address(result), 
-//					.writeEnable(MemWr), 
-//					.dataIn(dataIn));
-
 memory memINI(.clk(clk),
 		.regWE(MemWr),
 		.DataAddr(result[9:0]),
 		.DataIn(ReadData2),
 		.DataOut(DataOut));
 					
-mux mem2reg(.selected(WriteData), 
+mux32 mem2reg(.selected(WriteData), 
 		.inputA(DataOut), 
 		.inputB(result), 
-		.select(MemToReg));
-reg i=0;
-initial begin
-clk = 0; #1000
-for (i=0;i<100;i=i+1) begin			
-clk <= !clk;
-#1000
+		.select(1'b1)); //swapped out Mem
+
 assign imm16 = {Rd, Shamt, Funct};
 assign targetInstr = {Rt, Rs, Rd, Shamt, Funct};
-assign yolo = 1;
-end		
-$stop;
-end
+
 endmodule

@@ -4,7 +4,6 @@ module memory(
   input[31:0] DataIn,
   output[31:0] DataOut
 );
-
   reg [31:0] mem[1023:0];
   always @(posedge clk)
     if (regWE)

@@ -57,20 +57,20 @@ always @(opcode or func)  begin
 			end
 		end
 		6'b000010: begin // Jump
-			RegDst <= 0;
+			RegDst <= 0; //x
 			RegWr <= 0;
-			ALUsrc <= 0;
+			ALUsrc <= 0; //x
 			ALUcntrl <= 3'b000;
-			MemtoReg <= 0;
+			MemtoReg <= 0; //x 
 			MemWr <= 0;
 			jmp <= 1; // Allow jump
 			brch <= 0;
 		end
 		6'b000011: begin //Jump and Link
 			RegDst <= 0;
-			RegWr <= 0;
-			ALUsrc <= 0;
-			ALUcntrl <= 3'b000;
+			RegWr <= 0; //1
+			ALUsrc <= 0; //x
+			ALUcntrl <= 3'b000; //x
 			MemtoReg <= 0;
 			MemWr <= 0;
 			jmp <= 1; // Allow jump
@@ -81,7 +81,7 @@ always @(opcode or func)  begin
 			RegWr <= 0;
 			ALUsrc <= 0;
 			ALUcntrl <= 3'b001; // Subtract to test inequality
-			MemtoReg <= 1;
+			MemtoReg <= 1; //x
 			MemWr <= 0;
 			jmp <= 0;
 			brch <= 1; // Allow branch
@@ -107,21 +107,21 @@ always @(opcode or func)  begin
 			brch <= 0;
 		end
 		6'b100011: begin // Load
-			RegDst <= 1;
-			RegWr <= 0;
-			ALUsrc <= 0;
+			RegDst <= 1; //0
+			RegWr <= 0; //1
+			ALUsrc <= 0; //1
 			ALUcntrl <= 3'b000;
 			MemtoReg <= 1;
-			MemWr <= 0;
+			MemWr <= 0; 
 			jmp <= 0;
 			brch <= 0;
 		end
 		6'b101011: begin // Store
-			RegDst <= 0;
-			RegWr <= 0;
-			ALUsrc <= 0;
+			RegDst <= 0; //x
+			RegWr <= 0; 
+			ALUsrc <= 0; //1
 			ALUcntrl <= 3'b000;
-			MemtoReg <= 1;
+			MemtoReg <= 1; //x
 			MemWr <= 1;
 			jmp <= 0;
 			brch <= 0;
