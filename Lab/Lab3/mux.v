@@ -1,23 +1,27 @@
-module mux
-#(
-    parameter width	= 32
-)
-(
-output reg[width-1:0] 	selected,
-input[width-1:0]	inputA,
-input[width-1:0]	inputB,
-input			select
-);
-// General 32-bit 2-select MUX
-always @(inputA or inputB or select) begin
-	case(select)
-		1: begin
-		selected <= inputB;
-		end
-		0: begin
-		selected <= inputA;
-		end
-endcase
-end
+module mux32(selected,inputA,inputB,select);
+output[31:0] selected;
+input select;
+input[31:0] inputA;
+input[31:0] inputB;
 
+wire[31:0] m[1:0];
+
+assign m[0] = inputA;
+assign m[1] = inputB;
+
+assign selected = m[select];
+endmodule
+
+module mux5(selected, inputA, inputB, select);
+output[4:0] selected;
+input select;
+input[4:0] inputA;
+input[4:0] inputB;
+
+wire[4:0] m[1:0];
+
+assign m[0] = inputA;
+assign m[1] = inputB;
+
+assign selected = m[select];
 endmodule

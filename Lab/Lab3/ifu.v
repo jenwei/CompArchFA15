@@ -11,7 +11,7 @@ output[31:0] instr //address
 
 reg[29:0] 	pc = 30'b0;
 wire[31:0]	SignE;
-
+wire[31:0]	pc4;
 signextend SEI(
 	.imm16(imm16),
 	.imm32(SignE)
@@ -31,6 +31,12 @@ always @(posedge clk) begin
 		end
 	end
 end
-assign instr = {pc, 2'b00}; // Assign the instruction to instr and concatenate the missing '00' (essentially doing the +4 operation)
+
+//assign instr = {pc, 2'b00};
+assign pc4 = {pc, 2'b00}; // Assign the instruction to instr and concatenate the missing '00' (essentially doing the +4 operation)
+
+reg [31:0] mem[1023:0];
+initial $readmemh("fibotext.txt", mem);
+assign instr = mem[pc4];
 
 endmodule
