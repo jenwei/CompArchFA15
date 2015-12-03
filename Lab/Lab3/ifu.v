@@ -1,13 +1,13 @@
+// controls/updates program counter
 module ifu(
-input 		clk,
-input		zero,
-input		branch,
-input		jump,
-input[25:0]	targetInstr, //target address
-input[15:0]	imm16,
+input clk,
+input zero,
+input branch,
+input jump,
+input[25:0] targetInstr, //target address
+input[15:0] imm16,
 output[31:0] instr //address
 );
-// controls/updates program counter
 
 reg[29:0] 	pc = 30'b0;
 wire[31:0]	SignE;

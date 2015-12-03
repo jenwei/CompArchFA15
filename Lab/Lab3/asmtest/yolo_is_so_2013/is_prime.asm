@@ -4,13 +4,14 @@
 # $t1 is a multiple of $t0
 
 # test
-addi $a0, $zero, 317
+addi $a0, $zero, 317 #is prime
+#addi $a0, $zero, 300 #isn't prime
 
 # initializing $t0 - a possible factor of N
 addi $t0, $zero, 1
 
 # base cases - if N is 0 or 1 - branch to NOTPRIME
-beq $a0, 0 NOTPRIME
+beq $a0, $zero NOTPRIME
 beq $a0, 1 NOTPRIME 
 
 # increment possible factor and check if prime
@@ -28,12 +29,12 @@ bgt $t1, $a0, NEXT_FACT
 
 # return '0xa' if N is not prime
 NOTPRIME:
-addi $v0, $zero, 0xa
+addi $v0, $zero, 0xaa
 j END
 
 # return '0xb' N is prime
 PRIME:
-addi $v0, $zero, 0xb
-sw $v0, ($t2)
+addi $v0, $zero, 0xbb
+#sw $v0, ($t2)
 
 END:
