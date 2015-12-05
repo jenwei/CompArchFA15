@@ -17,3 +17,5 @@ How can someone else build on it?
 #####Notes
 - 11/30 - In-class - Initial proposal + submitted revised proposal + scheduled meeting times
 - 12/1 - Meeting - Reading through resources from Ben + taking notes
+- 12/4 - In-class - Research/catching up on other work
+- 12/5 - Meeting - Slidedeck outline + research
