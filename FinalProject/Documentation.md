@@ -20,3 +20,5 @@ How can someone else build on it?
 - 12/4 - In-class - Research/catching up on other work
 - 12/5 - Meeting - Slidedeck outline + research
 - 12/6 - Meeting - Slidedeck continuation + more research
+- 12/7 - In-class - Slidedeck continuation + more research
+- 12/8 - In-class - Slidedeck continuation + more research
