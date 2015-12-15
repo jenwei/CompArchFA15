@@ -22,3 +22,6 @@ How can someone else build on it?
 - 12/6 - Meeting - Slidedeck continuation + more research
 - 12/7 - In-class - Slidedeck continuation + more research
 - 12/8 - In-class - Slidedeck continuation + more research
+- 12/13 - Meeting - Finish slidedeck and start report
+- 12/14 - Meeting - Finish report
+- 12/15 - Meeting - Read over slidedeck and report, make revisions, finish documentation markdown, prepare for presentation
