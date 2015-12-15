@@ -29,6 +29,8 @@ As touched upon earlier, modern processors are intricate, complex and have great
 - Register Renaming
 - Intel vs AMD
 
+##### Link to Slidedeck Presentation
+<a>https://docs.google.com/presentation/d/1uZSossb9UlgZPdRTwFrpAYL88a2xm2JgLEWFaNxQWAA/edit#slide=id.gf87751522_0_0</a>
 ---
 #####Notes
 - 11/30 - In-class - Initial proposal + submitted revised proposal + scheduled meeting times (1.5 hr)
