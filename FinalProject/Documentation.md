@@ -28,6 +28,7 @@ As touched upon earlier, modern processors are intricate and complex and have gr
 - Buffers
 - Register Renaming
 - Intel vs AMD
+
 ---
 #####Notes
 - 11/30 - In-class - Initial proposal + submitted revised proposal + scheduled meeting times (1.5 hr)
