@@ -15,13 +15,14 @@ How can someone else build on it?
 <Work Plan reflection, possible TODOs to extend the depth of the project>
 ---
 #####Notes
-- 11/30 - In-class - Initial proposal + submitted revised proposal + scheduled meeting times
-- 12/1 - Meeting - Reading through resources from Ben + taking notes
-- 12/4 - In-class - Research/catching up on other work
-- 12/5 - Meeting - Slidedeck outline + research
-- 12/6 - Meeting - Slidedeck continuation + more research
-- 12/7 - In-class - Slidedeck continuation + more research
-- 12/8 - In-class - Slidedeck continuation + more research
-- 12/13 - Meeting - Finish slidedeck and start report
-- 12/14 - Meeting - Finish report
-- 12/15 - Meeting - Read over slidedeck and report, make revisions, finish documentation markdown, prepare for presentation
+- 11/30 - In-class - Initial proposal + submitted revised proposal + scheduled meeting times (1.5 hr)
+- 12/1 - Meeting - Reading through resources from Ben + taking notes (2.0 hr)
+- 12/4 - In-class - Research/catching up on other work (1.5 hr)
+- 12/5 - Meeting - Slidedeck outline + research (3.0 hr)
+- 12/6 - Meeting - Slidedeck continuation + more research (3.0 hr)
+- 12/7 - In-class - Slidedeck continuation + more research (1.5 hr)
+- 12/8 - In-class - Slidedeck continuation + more research (1.5 hr)
+- 12/13 - Meeting - Finish slidedeck and start report (2.5 hr)
+- 12/14 - Meeting - Finish report (2.5 hr)
+- 12/15 - Meeting - Read over slidedeck and report, make revisions, finish documentation markdown, prepare for presentation (2.0 hr)
+- TOTAL TIME 21 hours (does not include work done individually)
